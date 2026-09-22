@@ -29,11 +29,14 @@ export function KakaoPreview({ template }: Props) {
     msg,
     additionalContent,
     buttons,
+    topImageUrl,
+    highlightThumbnailUrl,
   } = template;
 
   const isItemList = emphasize === 'ITEM_LIST';
   const visibleItems = itemList.filter((it) => it.title || it.description);
-  const hasHighlight = itemHighlightTitle || itemHighlightDescription;
+  const hasHighlight =
+    itemHighlightTitle || itemHighlightDescription || highlightThumbnailUrl;
 
   return (
     <div className="kakao">
@@ -45,6 +48,10 @@ export function KakaoPreview({ template }: Props) {
       <div className="kakao__bubble">
         <div className="kakao__badge">알림톡 도착</div>
 
+        {topImageUrl && (
+          <img className="kakao__image" src={topImageUrl} alt="" />
+        )}
+
         <div className="kakao__body">
           {isItemList && header && (
             <div className="kakao__header">{header}</div>
@@ -55,13 +62,22 @@ export function KakaoPreview({ template }: Props) {
 
           {isItemList && hasHighlight && (
             <div className="kakao__highlight">
-              <div className="kakao__highlight-title">
-                {renderWithVars(itemHighlightTitle)}
-              </div>
-              {itemHighlightDescription && (
-                <div className="kakao__highlight-desc">
-                  {renderWithVars(itemHighlightDescription)}
+              <div className="kakao__highlight-text">
+                <div className="kakao__highlight-title">
+                  {renderWithVars(itemHighlightTitle)}
                 </div>
+                {itemHighlightDescription && (
+                  <div className="kakao__highlight-desc">
+                    {renderWithVars(itemHighlightDescription)}
+                  </div>
+                )}
+              </div>
+              {highlightThumbnailUrl && (
+                <img
+                  className="kakao__thumb"
+                  src={highlightThumbnailUrl}
+                  alt=""
+                />
               )}
             </div>
           )}

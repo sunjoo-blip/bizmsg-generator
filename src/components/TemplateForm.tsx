@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import type {
   Template,
   TemplateButton,
@@ -7,16 +8,29 @@ import type {
   MessageType,
 } from '../types';
 import { BUTTON_TYPE_LABELS, EMPHASIZE_LABELS } from '../types';
+import { ImagePickerModal } from './ImagePickerModal';
 
 interface Props {
   value: Template;
   onChange: (next: Template) => void;
+  topImages: string[];
+  thumbnails: string[];
+  onAddTopImage: (url: string) => void;
+  onAddThumbnail: (url: string) => void;
 }
 
 const MAX_MSG = 1000;
 
-export function TemplateForm({ value, onChange }: Props) {
+export function TemplateForm({
+  value,
+  onChange,
+  topImages,
+  thumbnails,
+  onAddTopImage,
+  onAddThumbnail,
+}: Props) {
   const patch = (p: Partial<Template>) => onChange({ ...value, ...p });
+  const [picker, setPicker] = useState<null | 'top' | 'thumb'>(null);
 
   const patchButton = (i: number, p: Partial<TemplateButton>) => {
     const buttons = value.buttons.map((b, idx) =>
@@ -86,14 +100,6 @@ export function TemplateForm({ value, onChange }: Props) {
         />
       </Row>
 
-      <Row label="카테고리" required>
-        <input
-          value={value.category}
-          onChange={(e) => patch({ category: e.target.value })}
-          placeholder="서비스이용"
-        />
-      </Row>
-
       <Row label="템플릿 메시지 유형" required>
         <select
           value={value.messageType}
@@ -104,6 +110,14 @@ export function TemplateForm({ value, onChange }: Props) {
           <option value="AT">기본형 (AT)</option>
           <option value="AI">이미지형 (AI)</option>
         </select>
+      </Row>
+
+      <Row label="상단 이미지" hint="전체폭 배너 · 미리보기 전용 (코드 미포함)">
+        <ImageSelect
+          value={value.topImageUrl}
+          onPick={() => setPicker('top')}
+          onClear={() => patch({ topImageUrl: '' })}
+        />
       </Row>
 
       <Row label="템플릿 강조 유형" required>
@@ -158,6 +172,13 @@ export function TemplateForm({ value, onChange }: Props) {
                 patch({ itemHighlightDescription: e.target.value })
               }
               placeholder="예약한 장소"
+            />
+          </Row>
+          <Row label="하이라이트 썸네일" hint="우측 작은 이미지 · 미리보기 전용">
+            <ImageSelect
+              value={value.highlightThumbnailUrl}
+              onPick={() => setPicker('thumb')}
+              onClear={() => patch({ highlightThumbnailUrl: '' })}
             />
           </Row>
 
@@ -335,7 +356,59 @@ export function TemplateForm({ value, onChange }: Props) {
           </div>
         ))}
       </div>
+
+      <ImagePickerModal
+        open={picker !== null}
+        title={picker === 'top' ? '상단 이미지 선택' : '하이라이트 썸네일 선택'}
+        images={picker === 'top' ? topImages : thumbnails}
+        selected={
+          picker === 'top' ? value.topImageUrl : value.highlightThumbnailUrl
+        }
+        onSelect={(url) =>
+          patch(
+            picker === 'top'
+              ? { topImageUrl: url }
+              : { highlightThumbnailUrl: url },
+          )
+        }
+        onAddUrl={picker === 'top' ? onAddTopImage : onAddThumbnail}
+        onClose={() => setPicker(null)}
+      />
     </form>
+  );
+}
+
+function ImageSelect({
+  value,
+  onPick,
+  onClear,
+}: {
+  value: string;
+  onPick: () => void;
+  onClear: () => void;
+}) {
+  return (
+    <div className="img-select">
+      {value ? (
+        <img className="img-select__preview" src={value} alt="" />
+      ) : (
+        <span className="img-select__empty">선택된 이미지가 없습니다.</span>
+      )}
+      <div className="img-select__actions">
+        <button type="button" className="btn btn--sm" onClick={onPick}>
+          이미지 선택
+        </button>
+        {value && (
+          <button
+            type="button"
+            className="btn btn--ghost btn--sm"
+            onClick={onClear}
+          >
+            삭제
+          </button>
+        )}
+      </div>
+    </div>
   );
 }
 

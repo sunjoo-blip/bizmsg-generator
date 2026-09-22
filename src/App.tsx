@@ -1,13 +1,51 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import type { Template } from './types';
-import { emptyTemplate, sampleTemplate } from './types';
+import {
+  emptyTemplate,
+  sampleTemplate,
+  TOP_IMAGE_PRESETS,
+  THUMBNAIL_PRESETS,
+} from './types';
 import { TemplateForm } from './components/TemplateForm';
 import { KakaoPreview } from './components/KakaoPreview';
 import { CodeOutput } from './components/CodeOutput';
 import './App.css';
 
+// 기본 프리셋 + 사용자가 추가해 저장한 URL 을 합쳐서 로드
+function loadList(key: string, presets: string[]): string[] {
+  try {
+    const raw = localStorage.getItem(key);
+    const saved: unknown = raw ? JSON.parse(raw) : [];
+    const savedArr = Array.isArray(saved) ? (saved as string[]) : [];
+    return Array.from(new Set([...presets, ...savedArr]));
+  } catch {
+    return presets;
+  }
+}
+
 export default function App() {
   const [template, setTemplate] = useState<Template>(sampleTemplate);
+  const [topImages, setTopImages] = useState<string[]>(() =>
+    loadList('bizmsg.topImages', TOP_IMAGE_PRESETS),
+  );
+  const [thumbnails, setThumbnails] = useState<string[]>(() =>
+    loadList('bizmsg.thumbnails', THUMBNAIL_PRESETS),
+  );
+
+  // 프리셋을 제외한 추가분만 저장
+  useEffect(() => {
+    const extra = topImages.filter((u) => !TOP_IMAGE_PRESETS.includes(u));
+    localStorage.setItem('bizmsg.topImages', JSON.stringify(extra));
+  }, [topImages]);
+  useEffect(() => {
+    const extra = thumbnails.filter((u) => !THUMBNAIL_PRESETS.includes(u));
+    localStorage.setItem('bizmsg.thumbnails', JSON.stringify(extra));
+  }, [thumbnails]);
+
+  const addTopImage = (url: string) =>
+    setTopImages((prev) => (prev.includes(url) ? prev : [...prev, url]));
+  const addThumbnail = (url: string) =>
+    setThumbnails((prev) => (prev.includes(url) ? prev : [...prev, url]));
 
   return (
     <div className="app">
@@ -36,7 +74,14 @@ export default function App() {
 
       <main className="app__grid">
         <section className="panel panel--form">
-          <TemplateForm value={template} onChange={setTemplate} />
+          <TemplateForm
+            value={template}
+            onChange={setTemplate}
+            topImages={topImages}
+            thumbnails={thumbnails}
+            onAddTopImage={addTopImage}
+            onAddThumbnail={addThumbnail}
+          />
         </section>
 
         <section className="panel panel--preview">
