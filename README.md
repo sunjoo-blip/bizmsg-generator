@@ -4,22 +4,24 @@ BizM 알림톡 템플릿을 입력하면 **`sendAlimtalk` 코드**와 **카카�
 자주 쓰는 템플릿을 **라이브러리에 저장**해두는 사내 도구입니다.
 
 - 프레임워크: Next.js 16 (App Router)
-- 저장소: `data/templates.json` (레포 커밋 → git 으로 팀 공유, DB 없음)
+- 저장소: **Redis** (`REDIS_URL`). env 가 없으면 로컬 `data/templates.json` 파일로 폴백.
 
 ## 개발
 
 ```bash
 npm install
-npm run dev        # http://localhost:3000
+vercel env pull .env.local   # REDIS_URL 등 환경변수 가져오기 (선택)
+npm run dev                  # http://localhost:3000
 ```
 
 ## 라이브러리 저장 방식
 
-- 앱의 **저장** 버튼 → `POST /api/templates` → `data/templates.json` 에 기록됩니다.
-- 저장 후 **git 커밋**하면 팀 전체에 공유되고 버전 관리됩니다.
-- 배포본(Vercel 등)은 파일시스템이 읽기 전용이라 **열람 전용**입니다. 저장은 로컬 실행에서 하세요.
-- 나중에 배포 사이트에서 바로 저장하고 싶어지면 `src/app/api/templates/route.ts` 의
-  파일 입출력만 DB(Supabase/Vercel Postgres 등)로 교체하면 됩니다.
+- 앱의 **저장** 버튼 → `POST /api/templates` → 저장소에 업서트됩니다.
+- **`REDIS_URL` 이 설정돼 있으면 Redis 사용** → 배포본에서 저장해도 팀 전체에 즉시 반영됩니다.
+- `REDIS_URL` 이 없으면 로컬 `data/templates.json` 파일에 저장(개발 폴백)됩니다.
+- `data/templates.json` 은 **최초 시딩 소스**입니다. Redis 가 비어있을 때 이 파일의 내용으로
+  한 번 채워지고, 이후 실데이터는 Redis 에 쌓입니다.
+- 저장소 구현: `src/lib/store.ts` (백엔드 교체 지점).
 
 ## 초기 시딩 (obud-api-v2 / onstudio-api)
 
