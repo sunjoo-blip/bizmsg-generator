@@ -26,7 +26,7 @@ export function TemplateForm({ value, onChange }: Props) {
   };
 
   const addButton = () => {
-    if (value.buttons.length >= 3) return;
+    if (value.buttons.length >= 5) return;
     patch({
       buttons: [
         ...value.buttons,
@@ -62,19 +62,19 @@ export function TemplateForm({ value, onChange }: Props) {
     <form className="form" onSubmit={(e) => e.preventDefault()}>
       <h2 className="form__title">템플릿 등록</h2>
 
-      <Row label="템플릿 명" required>
-        <input
-          value={value.templateName}
-          onChange={(e) => patch({ templateName: e.target.value })}
-          placeholder="예약신고 답변 등록 안내"
-        />
-      </Row>
-
-      <Row label="발신프로필" hint="profile 에 넣을 코드 표현식">
+      <Row label="발신프로필" required hint="profile 에 넣을 코드 표현식">
         <input
           value={value.profileExpr}
           onChange={(e) => patch({ profileExpr: e.target.value })}
           placeholder="ENV.BIZMSG.PROFILE_ID"
+        />
+      </Row>
+
+      <Row label="받는사람 변수" hint="phn 에 들어갈 변수명 (발송 코드용)">
+        <input
+          value={value.phoneVar}
+          onChange={(e) => patch({ phoneVar: e.target.value })}
+          placeholder="phone"
         />
       </Row>
 
@@ -86,7 +86,7 @@ export function TemplateForm({ value, onChange }: Props) {
         />
       </Row>
 
-      <Row label="카테고리">
+      <Row label="카테고리" required>
         <input
           value={value.category}
           onChange={(e) => patch({ category: e.target.value })}
@@ -94,7 +94,7 @@ export function TemplateForm({ value, onChange }: Props) {
         />
       </Row>
 
-      <Row label="메시지 유형" required>
+      <Row label="템플릿 메시지 유형" required>
         <select
           value={value.messageType}
           onChange={(e) =>
@@ -106,15 +106,7 @@ export function TemplateForm({ value, onChange }: Props) {
         </select>
       </Row>
 
-      <Row label="받는사람 변수" hint="phn 에 들어갈 변수명">
-        <input
-          value={value.phoneVar}
-          onChange={(e) => patch({ phoneVar: e.target.value })}
-          placeholder="phone"
-        />
-      </Row>
-
-      <Row label="강조 유형" required>
+      <Row label="템플릿 강조 유형" required>
         <select
           value={value.emphasize}
           onChange={(e) =>
@@ -141,11 +133,31 @@ export function TemplateForm({ value, onChange }: Props) {
 
       {value.emphasize === 'ITEM_LIST' && (
         <>
-          <Row label="헤더" hint="상단 굵은 제목 (header)">
+          <Row label="템플릿 헤더" hint="상단 굵은 제목 (header)">
             <input
               value={value.header}
               onChange={(e) => patch({ header: e.target.value })}
               placeholder="예약이 완료되었어요"
+            />
+          </Row>
+
+          <Row label="아이템 하이라이트 타이틀" hint="items.itemHighlight.title">
+            <input
+              value={value.itemHighlightTitle}
+              onChange={(e) => patch({ itemHighlightTitle: e.target.value })}
+              placeholder="#{장소명}"
+            />
+          </Row>
+          <Row
+            label="아이템 하이라이트 설명"
+            hint="items.itemHighlight.description"
+          >
+            <input
+              value={value.itemHighlightDescription}
+              onChange={(e) =>
+                patch({ itemHighlightDescription: e.target.value })
+              }
+              placeholder="예약한 장소"
             />
           </Row>
 
@@ -163,7 +175,7 @@ export function TemplateForm({ value, onChange }: Props) {
               </button>
             </div>
             <p className="row__hint" style={{ marginTop: -2 }}>
-              items.item.list · 좌측 항목명 / 우측 값
+              items.item.list · 좌측 아이템명 / 우측 아이템 내용
             </p>
 
             {value.itemList.map((it, i) => (
@@ -193,23 +205,6 @@ export function TemplateForm({ value, onChange }: Props) {
               </div>
             ))}
           </div>
-
-          <Row label="강조 아이템 제목" hint="items.itemHighlight.title">
-            <input
-              value={value.itemHighlightTitle}
-              onChange={(e) => patch({ itemHighlightTitle: e.target.value })}
-              placeholder="#{장소명}"
-            />
-          </Row>
-          <Row label="강조 아이템 설명" hint="items.itemHighlight.description">
-            <input
-              value={value.itemHighlightDescription}
-              onChange={(e) =>
-                patch({ itemHighlightDescription: e.target.value })
-              }
-              placeholder="예약한 장소"
-            />
-          </Row>
         </>
       )}
 
@@ -241,12 +236,12 @@ export function TemplateForm({ value, onChange }: Props) {
 
       <div className="buttons-section">
         <div className="buttons-section__head">
-          <span className="row__label">버튼 ({value.buttons.length}/3)</span>
+          <span className="row__label">버튼 ({value.buttons.length}/5)</span>
           <button
             type="button"
             className="btn btn--sm"
             onClick={addButton}
-            disabled={value.buttons.length >= 3}
+            disabled={value.buttons.length >= 5}
           >
             + 버튼 추가
           </button>

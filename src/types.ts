@@ -24,8 +24,6 @@ export interface TemplateItem {
 }
 
 export interface Template {
-  // 표시용 (코드에는 주석으로만 반영)
-  templateName: string;
   category: string;
 
   // sendAlimtalk 페이로드에 매핑
@@ -58,7 +56,6 @@ export const EMPHASIZE_LABELS: Record<EmphasizeType, string> = {
 };
 
 export const emptyTemplate: Template = {
-  templateName: '',
   category: '',
   profileExpr: 'ENV.BIZMSG.PROFILE_ID',
   tmplId: '',
@@ -77,7 +74,6 @@ export const emptyTemplate: Template = {
 
 // 예시 템플릿 (예약 완료 - 아이템리스트형)
 export const sampleTemplate: Template = {
-  templateName: '파트너 예약 완료 안내',
   category: '서비스이용',
   profileExpr: 'ENV.BIZMSG.PROFILE_ID',
   tmplId: 'partner_booking20',

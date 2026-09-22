@@ -40,7 +40,6 @@ export function generateCode(t: Template): string {
   const base = IND.repeat(3); // await ... 안쪽 오브젝트 들여쓰기 (서비스 메서드 내부 기준)
   const lines: string[] = [];
 
-  if (t.templateName) lines.push(`${IND.repeat(2)}// ${t.templateName}`);
   lines.push(`${IND.repeat(2)}await this.bizmsgService.sendAlimtalk({`);
   lines.push(`${base}message_type: ${q(t.messageType)},`);
   lines.push(`${base}phn: ${t.phoneVar || 'phone'},`);
@@ -94,8 +93,8 @@ export function generateCode(t: Template): string {
     }
   }
 
-  // 버튼 1~3
-  t.buttons.slice(0, 3).forEach((btn, i) => {
+  // 버튼 1~5
+  t.buttons.slice(0, 5).forEach((btn, i) => {
     lines.push(buttonBlock(`button${i + 1}`, btn, base));
   });
 

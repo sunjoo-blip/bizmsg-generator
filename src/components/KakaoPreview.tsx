@@ -94,7 +94,7 @@ export function KakaoPreview({ template }: Props) {
 
         {buttons.length > 0 && (
           <div className="kakao__buttons">
-            {buttons.slice(0, 3).map((b, i) => (
+            {buttons.slice(0, 5).map((b, i) => (
               <button type="button" className="kakao__btn" key={i} disabled>
                 {b.name || '버튼'}
               </button>
