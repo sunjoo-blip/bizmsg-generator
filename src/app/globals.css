@@ -71,6 +71,10 @@ textarea {
   gap: 8px;
 }
 
+.app--wide {
+  max-width: 1480px;
+}
+
 .app__grid {
   display: grid;
   grid-template-columns: minmax(0, 1fr) 400px;
@@ -78,10 +82,148 @@ textarea {
   align-items: start;
 }
 
+.app__grid--3 {
+  grid-template-columns: 250px minmax(0, 1fr) 400px;
+}
+
+@media (max-width: 1180px) {
+  .app__grid--3 {
+    grid-template-columns: 1fr;
+  }
+}
+
 @media (max-width: 900px) {
   .app__grid {
     grid-template-columns: 1fr;
   }
+}
+
+/* ---------- Library ---------- */
+.panel--library {
+  padding: 14px;
+  position: sticky;
+  top: 20px;
+  max-height: calc(100vh - 40px);
+  display: flex;
+  flex-direction: column;
+}
+
+@media (max-width: 1180px) {
+  .panel--library {
+    position: static;
+    max-height: 360px;
+  }
+}
+
+.library {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-height: 0;
+  flex: 1;
+}
+
+.library__search {
+  width: 100%;
+  padding: 7px 10px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  outline: none;
+}
+
+.library__search:focus {
+  border-color: var(--primary);
+}
+
+.library__list {
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-height: 0;
+}
+
+.library__empty {
+  color: var(--muted);
+  font-size: 12px;
+  text-align: center;
+  padding: 16px 0;
+}
+
+.library__group-label {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  padding: 2px 4px;
+  margin-bottom: 4px;
+}
+
+.library__item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+  padding: 7px 9px;
+  border-radius: 7px;
+  cursor: pointer;
+  font-size: 12.5px;
+}
+
+.library__item:hover {
+  background: #f1f3f5;
+}
+
+.library__item.is-active {
+  background: rgba(47, 111, 237, 0.1);
+}
+
+.library__tmpl {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-family: 'SF Mono', Menlo, Consolas, monospace;
+}
+
+.library__item.is-active .library__tmpl {
+  color: var(--primary);
+  font-weight: 600;
+}
+
+.library__del {
+  border: none;
+  background: none;
+  color: var(--muted);
+  font-size: 11px;
+  padding: 2px 4px;
+  opacity: 0;
+  flex-shrink: 0;
+}
+
+.library__item:hover .library__del {
+  opacity: 1;
+}
+
+/* ---------- Code tabs ---------- */
+.code__tabs {
+  display: flex;
+  gap: 4px;
+}
+
+.code__tab {
+  border: none;
+  background: none;
+  color: #8a93a0;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 3px 8px;
+  border-radius: 6px;
+}
+
+.code__tab.is-active {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.12);
 }
 
 .panel {

@@ -1,0 +1,1535 @@
+[
+  {
+    "id": "obud:ANSWER_ALIMTALK_TMPL_ID",
+    "project": "obud",
+    "sourceFile": "src/reservation/report/reservation-report.service.ts",
+    "rawCode": "this.bizmsgService.sendAlimtalk({\n      message_type: 'AT',\n      phn: phone,\n      profile: ENV.BIZMSG.PROFILE_ID,\n      tmplId: ANSWER_ALIMTALK_TMPL_ID,\n      header: '예약신고 답변이 등록되었습니다',\n      additional_content: '추가 문의는 앱 고객센터를 이용해주세요.',\n      msg:\n        `${reservation?.reservationer ?? ''}님, 신고하신 ${reservation?.placeTitle ?? ''} 예약 건에 답변이 등록되었어요.\\n` +\n        `자세한 답변은 앱에서 확인해주세요.`,\n      button1: {\n        name: '답변 확인하기',\n        type: 'WL',\n        url_mobile: url,\n        url_pc: url,\n      },\n    })",
+    "savedAt": "2026-09-22T07:19:55.713Z",
+    "template": {
+      "category": "",
+      "profileExpr": "ENV.BIZMSG.PROFILE_ID",
+      "tmplId": "ANSWER_ALIMTALK_TMPL_ID",
+      "messageType": "AT",
+      "phoneVar": "phone",
+      "emphasize": "ITEM_LIST",
+      "header": "예약신고 답변이 등록되었습니다",
+      "title": "",
+      "itemList": [],
+      "itemHighlightTitle": "",
+      "itemHighlightDescription": "",
+      "msg": "`${reservation?.reservationer ?? ''}님, 신고하신 ${reservation?.placeTitle ?? ''} 예약 건에 답변이 등록되었어요.\\n` +\n        `자세한 답변은 앱에서 확인해주세요.`",
+      "additionalContent": "추가 문의는 앱 고객센터를 이용해주세요.",
+      "buttons": [
+        {
+          "name": "답변 확인하기",
+          "type": "WL",
+          "url_mobile": "url",
+          "url_pc": "url",
+          "scheme_ios": "",
+          "scheme_android": ""
+        }
+      ],
+      "topImageUrl": "",
+      "highlightThumbnailUrl": ""
+    }
+  },
+  {
+    "id": "obud:birthday8",
+    "project": "obud",
+    "sourceFile": "src/batch/batch.service.ts",
+    "rawCode": "this.bizmsgService.sendAlimtalk({\n          message_type: 'AI',\n          phn: user.phone,\n          profile: ENV.BIZMSG.PROFILE_ID,\n          tmplId: 'birthday8',\n          msg:\n            `🎉 생일을 축하합니다!\\n` +\n            `고객님의 특별한 날을 기념하며, 오붓에서 할인쿠폰을 준비했어요.\\n\\n` +\n            `할인 쿠폰: 오붓패스 15% 할인\\n` +\n            `사용 기한: ${validUntil}\\n\\n` +\n            `오붓과 함께 건강하고 행복한 시간 보내세요 :)\\n\\n` +\n            `- 이 메시지는 고객님의 동의에 의해 지급된 쿠폰 안내 메시지입니다.`,\n          button1: {\n            name: '쿠폰 확인하기',\n            type: 'WL',\n            url_mobile: 'https://www.obud.co/my/coupon',\n            url_pc: 'https://www.obud.co/my/coupon',\n          },\n        })",
+    "savedAt": "2026-09-22T07:19:55.373Z",
+    "template": {
+      "category": "",
+      "profileExpr": "ENV.BIZMSG.PROFILE_ID",
+      "tmplId": "birthday8",
+      "messageType": "AI",
+      "phoneVar": "user.phone",
+      "emphasize": "NONE",
+      "header": "",
+      "title": "",
+      "itemList": [],
+      "itemHighlightTitle": "",
+      "itemHighlightDescription": "",
+      "msg": "`🎉 생일을 축하합니다!\\n` +\n            `고객님의 특별한 날을 기념하며, 오붓에서 할인쿠폰을 준비했어요.\\n\\n` +\n            `할인 쿠폰: 오붓패스 15% 할인\\n` +\n            `사용 기한: ${validUntil}\\n\\n` +\n            `오붓과 함께 건강하고 행복한 시간 보내세요 :)\\n\\n` +\n            `- 이 메시지는 고객님의 동의에 의해 지급된 쿠폰 안내 메시지입니다.`",
+      "additionalContent": "",
+      "buttons": [
+        {
+          "name": "쿠폰 확인하기",
+          "type": "WL",
+          "url_mobile": "https://www.obud.co/my/coupon",
+          "url_pc": "https://www.obud.co/my/coupon",
+          "scheme_ios": "",
+          "scheme_android": ""
+        }
+      ],
+      "topImageUrl": "",
+      "highlightThumbnailUrl": ""
+    }
+  },
+  {
+    "id": "obud:cancel_one_time",
+    "project": "obud",
+    "sourceFile": "src/reservation/reservation.service.ts",
+    "rawCode": "this.bizmsgService.sendAlimtalk({\n        message_type: 'AT',\n        phn: userPhone,\n        profile: ENV.BIZMSG.PROFILE_ID,\n        tmplId: 'cancel_one_time',\n        header: '예약 취소',\n        msg: `안녕하세요 ${userName}님,\\n예약이 취소되었습니다.`,\n        items: {\n          item: {\n            list: [\n              {\n                title: '예약',\n                description: this.shortenTitle(scheduleTitle, 23),\n              },\n              { title: '날짜', description: this.formatDate(startDateObj) },\n              {\n                title: '시간',\n                description: this.formatTimeRange(startDateObj, endDateObj),\n              },\n              {\n                title: '결제금액',\n                description: `${amount.toLocaleString()}원`,\n              },\n              {\n                title: '환불금액',\n                description: `${cancelAmount.toLocaleString()}원`,\n              },\n            ],\n          },\n          itemHighlight: {\n            title: this.shortenTitle(placeTitle, 21),\n            description: '예약한 장소',\n          },\n        },\n        button1: {\n          name: '일정 다시 예약하기',\n          type: 'WL',\n          url_mobile: `https://www.obud.co/place/${placeSlug}`,\n          url_pc: `https://www.obud.co/place/${placeSlug}`,\n        },\n        button2: {\n          name: '지도 바로가기',\n          type: 'WL',\n          url_mobile: 'https://www.obud.co/discover',\n          url_pc: 'https://www.obud.co/discover',\n        },\n      })",
+    "savedAt": "2026-09-22T07:19:55.539Z",
+    "template": {
+      "category": "",
+      "profileExpr": "ENV.BIZMSG.PROFILE_ID",
+      "tmplId": "cancel_one_time",
+      "messageType": "AT",
+      "phoneVar": "userPhone",
+      "emphasize": "ITEM_LIST",
+      "header": "예약 취소",
+      "title": "",
+      "itemList": [
+        {
+          "title": "예약",
+          "description": "this.shortenTitle(scheduleTitle, 23)"
+        },
+        {
+          "title": "날짜",
+          "description": "this.formatDate(startDateObj)"
+        },
+        {
+          "title": "시간",
+          "description": "this.formatTimeRange(startDateObj, endDateObj)"
+        },
+        {
+          "title": "결제금액",
+          "description": "${amount.toLocaleString()}원"
+        },
+        {
+          "title": "환불금액",
+          "description": "${cancelAmount.toLocaleString()}원"
+        }
+      ],
+      "itemHighlightTitle": "this.shortenTitle(placeTitle, 21)",
+      "itemHighlightDescription": "예약한 장소",
+      "msg": "안녕하세요 ${userName}님,\n예약이 취소되었습니다.",
+      "additionalContent": "",
+      "buttons": [
+        {
+          "name": "일정 다시 예약하기",
+          "type": "WL",
+          "url_mobile": "https://www.obud.co/place/${placeSlug}",
+          "url_pc": "https://www.obud.co/place/${placeSlug}",
+          "scheme_ios": "",
+          "scheme_android": ""
+        },
+        {
+          "name": "지도 바로가기",
+          "type": "WL",
+          "url_mobile": "https://www.obud.co/discover",
+          "url_pc": "https://www.obud.co/discover",
+          "scheme_ios": "",
+          "scheme_android": ""
+        }
+      ],
+      "topImageUrl": "",
+      "highlightThumbnailUrl": ""
+    }
+  },
+  {
+    "id": "obud:cancel_one_time_reason",
+    "project": "obud",
+    "sourceFile": "src/reservation/reservation.service.ts",
+    "rawCode": "this.bizmsgService.sendAlimtalk({\n        message_type: 'AT',\n        phn: userPhone,\n        profile: ENV.BIZMSG.PROFILE_ID,\n        tmplId: 'cancel_one_time_reason',\n        header: '예약 취소',\n        msg: `예약하신 일정이 관리자에 의해 취소되었습니다.\\n\\n[취소 사유]\\n${cancelReasonText}`,\n        items: {\n          item: {\n            list: [\n              {\n                title: '예약',\n                description: this.shortenTitle(scheduleTitle, 23),\n              },\n              { title: '날짜', description: this.formatDate(startDateObj) },\n              {\n                title: '시간',\n                description: this.formatTimeRange(startDateObj, endDateObj),\n              },\n              {\n                title: '결재금액',\n                description: `${amount.toLocaleString()}원`,\n              },\n              {\n                title: '환불금액',\n                description: `${cancelAmount.toLocaleString()}원`,\n              },\n            ],\n          },\n          itemHighlight: {\n            title: this.shortenTitle(placeTitle, 21),\n            description: '예약한 장소',\n          },\n        },\n        button1: {\n          name: '일정 다시 예약하기',\n          type: 'WL',\n          url_mobile: `https://www.obud.co/place/${placeSlug}`,\n          url_pc: `https://www.obud.co/place/${placeSlug}`,\n        },\n        button2: {\n          name: '지도 바로가기',\n          type: 'WL',\n          url_mobile: 'https://www.obud.co/discover',\n          url_pc: 'https://www.obud.co/discover',\n        },\n      })",
+    "savedAt": "2026-09-22T07:19:55.539Z",
+    "template": {
+      "category": "",
+      "profileExpr": "ENV.BIZMSG.PROFILE_ID",
+      "tmplId": "cancel_one_time_reason",
+      "messageType": "AT",
+      "phoneVar": "userPhone",
+      "emphasize": "ITEM_LIST",
+      "header": "예약 취소",
+      "title": "",
+      "itemList": [
+        {
+          "title": "예약",
+          "description": "this.shortenTitle(scheduleTitle, 23)"
+        },
+        {
+          "title": "날짜",
+          "description": "this.formatDate(startDateObj)"
+        },
+        {
+          "title": "시간",
+          "description": "this.formatTimeRange(startDateObj, endDateObj)"
+        },
+        {
+          "title": "결재금액",
+          "description": "${amount.toLocaleString()}원"
+        },
+        {
+          "title": "환불금액",
+          "description": "${cancelAmount.toLocaleString()}원"
+        }
+      ],
+      "itemHighlightTitle": "this.shortenTitle(placeTitle, 21)",
+      "itemHighlightDescription": "예약한 장소",
+      "msg": "예약하신 일정이 관리자에 의해 취소되었습니다.\n\n[취소 사유]\n${cancelReasonText}",
+      "additionalContent": "",
+      "buttons": [
+        {
+          "name": "일정 다시 예약하기",
+          "type": "WL",
+          "url_mobile": "https://www.obud.co/place/${placeSlug}",
+          "url_pc": "https://www.obud.co/place/${placeSlug}",
+          "scheme_ios": "",
+          "scheme_android": ""
+        },
+        {
+          "name": "지도 바로가기",
+          "type": "WL",
+          "url_mobile": "https://www.obud.co/discover",
+          "url_pc": "https://www.obud.co/discover",
+          "scheme_ios": "",
+          "scheme_android": ""
+        }
+      ],
+      "topImageUrl": "",
+      "highlightThumbnailUrl": ""
+    }
+  },
+  {
+    "id": "obud:cancel_pass",
+    "project": "obud",
+    "sourceFile": "src/reservation/reservation.service.ts",
+    "rawCode": "this.bizmsgService.sendAlimtalk({\n      message_type: 'AT',\n      phn: userPhone || user.phone,\n      profile: ENV.BIZMSG.PROFILE_ID,\n      tmplId: 'cancel_pass',\n      msg: `안녕하세요 ${userName || user.name}님,\\n예약이 취소되었습니다.`,\n      header: '예약 취소',\n      items: {\n        item: {\n          list: [\n            { title: '예약', description: shortenTitle(scheduleTitle, 23) },\n            { title: '날짜', description: formatDate(startDate) },\n            {\n              title: '시간',\n              description: formatTimeRange(startDate, endDate),\n            },\n            { title: '패스', description: shortenTitle(passName, 21) },\n          ],\n        },\n        itemHighlight: {\n          title: shortenTitle(placeTitle, 21),\n          description: '예약한 장소',\n        },\n      },\n      button1: {\n        name: '일정 다시 예약하기',\n        type: 'WL',\n        url_mobile: `https://www.obud.co/place/${placeSlug}`,\n        url_pc: `https://www.obud.co/place/${placeSlug}`,\n      },\n      button2: {\n        name: '지도 바로가기',\n        type: 'WL',\n        url_mobile: 'https://www.obud.co/discover',\n        url_pc: 'https://www.obud.co/discover',\n      },\n    })",
+    "savedAt": "2026-09-22T07:19:55.536Z",
+    "template": {
+      "category": "",
+      "profileExpr": "ENV.BIZMSG.PROFILE_ID",
+      "tmplId": "cancel_pass",
+      "messageType": "AT",
+      "phoneVar": "userPhone || user.phone",
+      "emphasize": "ITEM_LIST",
+      "header": "예약 취소",
+      "title": "",
+      "itemList": [
+        {
+          "title": "예약",
+          "description": "shortenTitle(scheduleTitle, 23)"
+        },
+        {
+          "title": "날짜",
+          "description": "formatDate(startDate)"
+        },
+        {
+          "title": "시간",
+          "description": "formatTimeRange(startDate, endDate)"
+        },
+        {
+          "title": "패스",
+          "description": "shortenTitle(passName, 21)"
+        }
+      ],
+      "itemHighlightTitle": "shortenTitle(placeTitle, 21)",
+      "itemHighlightDescription": "예약한 장소",
+      "msg": "안녕하세요 ${userName || user.name}님,\n예약이 취소되었습니다.",
+      "additionalContent": "",
+      "buttons": [
+        {
+          "name": "일정 다시 예약하기",
+          "type": "WL",
+          "url_mobile": "https://www.obud.co/place/${placeSlug}",
+          "url_pc": "https://www.obud.co/place/${placeSlug}",
+          "scheme_ios": "",
+          "scheme_android": ""
+        },
+        {
+          "name": "지도 바로가기",
+          "type": "WL",
+          "url_mobile": "https://www.obud.co/discover",
+          "url_pc": "https://www.obud.co/discover",
+          "scheme_ios": "",
+          "scheme_android": ""
+        }
+      ],
+      "topImageUrl": "",
+      "highlightThumbnailUrl": ""
+    }
+  },
+  {
+    "id": "obud:cancel_pass_reason",
+    "project": "obud",
+    "sourceFile": "src/reservation/reservation.service.ts",
+    "savedAt": "2026-09-22T07:27:53.728Z",
+    "template": {
+      "category": "",
+      "profileExpr": "ENV.BIZMSG.PROFILE_ID",
+      "tmplId": "cancel_pass_reason",
+      "messageType": "AT",
+      "phoneVar": "userPhone || user.phone",
+      "emphasize": "ITEM_LIST",
+      "header": "예약 취소",
+      "title": "",
+      "itemList": [
+        {
+          "title": "예약",
+          "description": "shortenTitle(scheduleTitle, 23)"
+        },
+        {
+          "title": "날짜",
+          "description": "formatDate(startDate)"
+        },
+        {
+          "title": "시간",
+          "description": "formatTimeRange(startDate, endDate)"
+        },
+        {
+          "title": "패스",
+          "description": "shortenTitle(passName, 21)"
+        }
+      ],
+      "itemHighlightTitle": "shortenTitle(placeTitle, 21)",
+      "itemHighlightDescription": "예약한 장소",
+      "msg": "예약하신 일정이 관리자에 의해 취소되었습니다.\n\n[취소 사유]\n${cancelReason}",
+      "additionalContent": "",
+      "buttons": [
+        {
+          "name": "일정 다시 예약하기",
+          "type": "WL",
+          "url_mobile": "https://www.obud.co/place/${placeSlug}",
+          "url_pc": "https://www.obud.co/place/${placeSlug}",
+          "scheme_ios": "",
+          "scheme_android": ""
+        },
+        {
+          "name": "지도 바로가기",
+          "type": "WL",
+          "url_mobile": "https://www.obud.co/discover",
+          "url_pc": "https://www.obud.co/discover",
+          "scheme_ios": "",
+          "scheme_android": ""
+        }
+      ],
+      "topImageUrl": "",
+      "highlightThumbnailUrl": "https://mud-kage.kakao.com/dn/hhh9C/btsNZZMSGrU/hp54NKp0gXezWsUfKZhiOK/img_s.jpg"
+    }
+  },
+  {
+    "id": "obud:cancel-3times2",
+    "project": "obud",
+    "sourceFile": "src/reservation/reservation.service.ts",
+    "rawCode": "this.bizmsgService.sendAlimtalk({\n      message_type: 'AT',\n      phn: userPhone,\n      profile: ENV.BIZMSG.PROFILE_ID,\n      tmplId: 'cancel-3times2',\n      msg: `예약이 스튜디오 사정으로 ${CANCEL_COMPENSATION.STREAK_THRESHOLD}회 연속 취소되어,\\n죄송한 마음을 담아 **오붓패스를 ${extendDays}일** 연장해드렸어요.\\n\\n스튜디오 운영 사정으로 부득이하게 취소될 수 있는 점 양해 부탁드립니다.\\n다른 일정으로 다시 예약해주시면 감사하겠습니다. 🙏`,\n      button1: {\n        name: '패스 확인하기',\n        type: 'WL',\n        url_mobile: `https://www.obud.co/my`,\n        url_pc: `https://www.obud.co/my`,\n      },\n    })",
+    "savedAt": "2026-09-22T07:19:55.537Z",
+    "template": {
+      "category": "",
+      "profileExpr": "ENV.BIZMSG.PROFILE_ID",
+      "tmplId": "cancel-3times2",
+      "messageType": "AT",
+      "phoneVar": "userPhone",
+      "emphasize": "NONE",
+      "header": "",
+      "title": "",
+      "itemList": [],
+      "itemHighlightTitle": "",
+      "itemHighlightDescription": "",
+      "msg": "예약이 스튜디오 사정으로 ${CANCEL_COMPENSATION.STREAK_THRESHOLD}회 연속 취소되어,\n죄송한 마음을 담아 **오붓패스를 ${extendDays}일** 연장해드렸어요.\n\n스튜디오 운영 사정으로 부득이하게 취소될 수 있는 점 양해 부탁드립니다.\n다른 일정으로 다시 예약해주시면 감사하겠습니다. 🙏",
+      "additionalContent": "",
+      "buttons": [
+        {
+          "name": "패스 확인하기",
+          "type": "WL",
+          "url_mobile": "https://www.obud.co/my",
+          "url_pc": "https://www.obud.co/my",
+          "scheme_ios": "",
+          "scheme_android": ""
+        }
+      ],
+      "topImageUrl": "",
+      "highlightThumbnailUrl": ""
+    }
+  },
+  {
+    "id": "obud:coupon_D_1",
+    "project": "obud",
+    "sourceFile": "src/batch/batch.service.ts",
+    "rawCode": "this.bizmsgService.sendAlimtalk({\n          message_type: 'AI',\n          phn: t.userPhone,\n          profile: ENV.BIZMSG.PROFILE_ID,\n          tmplId: 'coupon_D_1',\n          msg,\n          button1: {\n            name: '쿠폰 확인하기',\n            type: 'WL',\n            url_mobile: 'https://www.obud.co/my/coupon',\n            url_pc: 'https://www.obud.co/my/coupon',\n          },\n        })",
+    "savedAt": "2026-09-22T07:19:55.372Z",
+    "template": {
+      "category": "",
+      "profileExpr": "ENV.BIZMSG.PROFILE_ID",
+      "tmplId": "coupon_D_1",
+      "messageType": "AI",
+      "phoneVar": "t.userPhone",
+      "emphasize": "NONE",
+      "header": "",
+      "title": "",
+      "itemList": [],
+      "itemHighlightTitle": "",
+      "itemHighlightDescription": "",
+      "msg": "msg",
+      "additionalContent": "",
+      "buttons": [
+        {
+          "name": "쿠폰 확인하기",
+          "type": "WL",
+          "url_mobile": "https://www.obud.co/my/coupon",
+          "url_pc": "https://www.obud.co/my/coupon",
+          "scheme_ios": "",
+          "scheme_android": ""
+        }
+      ],
+      "topImageUrl": "",
+      "highlightThumbnailUrl": ""
+    }
+  },
+  {
+    "id": "obud:coupon_repurchase",
+    "project": "obud",
+    "sourceFile": "src/coupon/coupon.service.ts",
+    "rawCode": "this.bizmsgService.sendAlimtalk({\n        message_type: 'AI',\n        phn: user.phone,\n        profile: ENV.BIZMSG.PROFILE_ID,\n        tmplId: 'coupon_repurchase',\n        msg:\n          `🎁 ${passName} 재구매 쿠폰이 발급되었어요!\\n\\n` +\n          `✓ 유효기간: ${validUntil}\\n\\n` +\n          `앞으로도 ${userName}님의\\n` +\n          `건강한 웰니스 여정을 응원합니다 💪\\n\\n` +\n          `- 이 메시지는 구매하신 상품(서비스)의 사은품으로 지급된 쿠폰 안내 메시지입니다.`,\n        button1: {\n          name: '오붓패스 바로가기',\n          type: 'WL',\n          url_mobile: 'https://www.obud.co/obud-pass',\n          url_pc: 'https://www.obud.co/obud-pass',\n        },\n        button2: {\n          name: '내 주변 공간 탐색하기',\n          type: 'WL',\n          url_mobile: 'https://www.obud.co/discover',\n          url_pc: 'https://www.obud.co/discover',\n        },\n      })",
+    "savedAt": "2026-09-22T07:19:55.403Z",
+    "template": {
+      "category": "",
+      "profileExpr": "ENV.BIZMSG.PROFILE_ID",
+      "tmplId": "coupon_repurchase",
+      "messageType": "AI",
+      "phoneVar": "user.phone",
+      "emphasize": "NONE",
+      "header": "",
+      "title": "",
+      "itemList": [],
+      "itemHighlightTitle": "",
+      "itemHighlightDescription": "",
+      "msg": "`🎁 ${passName} 재구매 쿠폰이 발급되었어요!\\n\\n` +\n          `✓ 유효기간: ${validUntil}\\n\\n` +\n          `앞으로도 ${userName}님의\\n` +\n          `건강한 웰니스 여정을 응원합니다 💪\\n\\n` +\n          `- 이 메시지는 구매하신 상품(서비스)의 사은품으로 지급된 쿠폰 안내 메시지입니다.`",
+      "additionalContent": "",
+      "buttons": [
+        {
+          "name": "오붓패스 바로가기",
+          "type": "WL",
+          "url_mobile": "https://www.obud.co/obud-pass",
+          "url_pc": "https://www.obud.co/obud-pass",
+          "scheme_ios": "",
+          "scheme_android": ""
+        },
+        {
+          "name": "내 주변 공간 탐색하기",
+          "type": "WL",
+          "url_mobile": "https://www.obud.co/discover",
+          "url_pc": "https://www.obud.co/discover",
+          "scheme_ios": "",
+          "scheme_android": ""
+        }
+      ],
+      "topImageUrl": "",
+      "highlightThumbnailUrl": ""
+    }
+  },
+  {
+    "id": "obud:coupon-issue",
+    "project": "obud",
+    "sourceFile": "src/coupon/coupon.service.ts",
+    "rawCode": "this.bizmsgService.sendAlimtalk({\n        message_type: 'AI',\n        phn: phone,\n        profile: ENV.BIZMSG.PROFILE_ID,\n        tmplId: 'coupon-issue',\n        msg:\n          `리뷰 이벤트 참여 감사합니다 🎉\\n` +\n          `사용 가능한 쿠폰이 발급되었습니다.\\n\\n` +\n          `▶ 쿠폰명: ${couponName}\\n` +\n          `▶ 만료일: ${expireDate}`,\n        additional_content:\n          '※ (오붓) 리뷰 이벤트 참여 고객님께 발급된 쿠폰 안내 메시지입니다.',\n        button1: {\n          name: '나의 쿠폰 확인하기',\n          type: 'WL',\n          url_mobile: 'https://www.obud.co/my/coupon',\n          url_pc: 'https://www.obud.co/my/coupon',\n        },\n      })",
+    "savedAt": "2026-09-22T07:19:55.402Z",
+    "template": {
+      "category": "",
+      "profileExpr": "ENV.BIZMSG.PROFILE_ID",
+      "tmplId": "coupon-issue",
+      "messageType": "AI",
+      "phoneVar": "phone",
+      "emphasize": "NONE",
+      "header": "",
+      "title": "",
+      "itemList": [],
+      "itemHighlightTitle": "",
+      "itemHighlightDescription": "",
+      "msg": "`리뷰 이벤트 참여 감사합니다 🎉\\n` +\n          `사용 가능한 쿠폰이 발급되었습니다.\\n\\n` +\n          `▶ 쿠폰명: ${couponName}\\n` +\n          `▶ 만료일: ${expireDate}`",
+      "additionalContent": "※ (오붓) 리뷰 이벤트 참여 고객님께 발급된 쿠폰 안내 메시지입니다.",
+      "buttons": [
+        {
+          "name": "나의 쿠폰 확인하기",
+          "type": "WL",
+          "url_mobile": "https://www.obud.co/my/coupon",
+          "url_pc": "https://www.obud.co/my/coupon",
+          "scheme_ios": "",
+          "scheme_android": ""
+        }
+      ],
+      "topImageUrl": "",
+      "highlightThumbnailUrl": ""
+    }
+  },
+  {
+    "id": "obud:NAVER_GIFT_TMPL_ID",
+    "project": "obud",
+    "sourceFile": "src/naver-commerce/naver-commerce.service.ts",
+    "rawCode": "this.bizmsgService.sendAlimtalk({\n          message_type: 'AT',\n          phn: order.buyerPhone,\n          profile: ENV.BIZMSG.PROFILE_ID,\n          tmplId: NAVER_GIFT_TMPL_ID,\n          msg: `오붓 앱 > 마이페이지 > 패스 관리에서 코드를 등록해주세요.`,\n          items: {\n            item: {\n              list: [\n                { title: '상품', description: shortenTitle(passName, 21) },\n                { title: '코드', description: giftCode },\n              ],\n            },\n          },\n          additional_content:\n            `※ 코드 등록 후 패스가 자동으로 생성됩니다.\\n` +\n            `※ 패스 사용기간은 코드 등록일로부터 시작됩니다.`,\n          button1: {\n            name: '코드 등록하기',\n            type: 'WL',\n            url_mobile: registerUrl,\n            url_pc: registerUrl,\n          },\n        })",
+    "savedAt": "2026-09-22T07:19:55.438Z",
+    "template": {
+      "category": "",
+      "profileExpr": "ENV.BIZMSG.PROFILE_ID",
+      "tmplId": "NAVER_GIFT_TMPL_ID",
+      "messageType": "AT",
+      "phoneVar": "order.buyerPhone",
+      "emphasize": "ITEM_LIST",
+      "header": "",
+      "title": "",
+      "itemList": [
+        {
+          "title": "상품",
+          "description": "shortenTitle(passName, 21)"
+        },
+        {
+          "title": "코드",
+          "description": "giftCode"
+        }
+      ],
+      "itemHighlightTitle": "",
+      "itemHighlightDescription": "",
+      "msg": "오붓 앱 > 마이페이지 > 패스 관리에서 코드를 등록해주세요.",
+      "additionalContent": "`※ 코드 등록 후 패스가 자동으로 생성됩니다.\\n` +\n            `※ 패스 사용기간은 코드 등록일로부터 시작됩니다.`",
+      "buttons": [
+        {
+          "name": "코드 등록하기",
+          "type": "WL",
+          "url_mobile": "registerUrl",
+          "url_pc": "registerUrl",
+          "scheme_ios": "",
+          "scheme_android": ""
+        }
+      ],
+      "topImageUrl": "",
+      "highlightThumbnailUrl": ""
+    }
+  },
+  {
+    "id": "obud:partner_booking20",
+    "project": "obud",
+    "sourceFile": "src/reservation/reservation.service.ts",
+    "rawCode": "this.bizmsgService.sendAlimtalk({\n        message_type: 'AT',\n        phn: recipient.phone,\n        profile: ENV.BIZMSG.PROFILE_ID,\n        tmplId: 'partner_booking20',\n        msg: `예약이 완료되었습니다.\\n상세 내용을 확인해 주세요.`,\n        header: '예약이 완료되었어요',\n        items: {\n          item: {\n            list: [\n              {\n                title: '예약',\n                description: this.shortenTitle(scheduleTitle, 23),\n              },\n              {\n                title: '일정',\n                description: this.formatMonthDayTime(startDateObj),\n              },\n              { title: '인원', description: `${reservationCount}명` },\n              { title: '예약자', description: this.shortenTitle(userName, 21) },\n              { title: '연락처', description: this.formatPhone(userPhone) },\n              { title: '예약수단', description: '1회권' },\n            ],\n          },\n          itemHighlight: {\n            title: this.shortenTitle(placeTitle, 21),\n            description: '예약한 장소',\n          },\n        },\n        button1: {\n          name: '예약내역 상세보기',\n          type: 'WL',\n          url_mobile: `https://admin.obud.co/place/${placeId}/reservation`,\n          url_pc: `https://admin.obud.co/place/${placeId}/reservation`,\n        },\n      })",
+    "savedAt": "2026-09-22T07:19:55.538Z",
+    "template": {
+      "category": "",
+      "profileExpr": "ENV.BIZMSG.PROFILE_ID",
+      "tmplId": "partner_booking20",
+      "messageType": "AT",
+      "phoneVar": "recipient.phone",
+      "emphasize": "ITEM_LIST",
+      "header": "예약이 완료되었어요",
+      "title": "",
+      "itemList": [
+        {
+          "title": "예약",
+          "description": "this.shortenTitle(scheduleTitle, 23)"
+        },
+        {
+          "title": "일정",
+          "description": "this.formatMonthDayTime(startDateObj)"
+        },
+        {
+          "title": "인원",
+          "description": "${reservationCount}명"
+        },
+        {
+          "title": "예약자",
+          "description": "this.shortenTitle(userName, 21)"
+        },
+        {
+          "title": "연락처",
+          "description": "this.formatPhone(userPhone)"
+        },
+        {
+          "title": "예약수단",
+          "description": "1회권"
+        }
+      ],
+      "itemHighlightTitle": "this.shortenTitle(placeTitle, 21)",
+      "itemHighlightDescription": "예약한 장소",
+      "msg": "예약이 완료되었습니다.\n상세 내용을 확인해 주세요.",
+      "additionalContent": "",
+      "buttons": [
+        {
+          "name": "예약내역 상세보기",
+          "type": "WL",
+          "url_mobile": "https://admin.obud.co/place/${placeId}/reservation",
+          "url_pc": "https://admin.obud.co/place/${placeId}/reservation",
+          "scheme_ios": "",
+          "scheme_android": ""
+        }
+      ],
+      "topImageUrl": "",
+      "highlightThumbnailUrl": ""
+    }
+  },
+  {
+    "id": "obud:partner_booking21",
+    "project": "obud",
+    "sourceFile": "src/reservation/reservation.service.ts",
+    "rawCode": "this.bizmsgService.sendAlimtalk({\n        message_type: 'AT',\n        phn: recipient.phone,\n        profile: ENV.BIZMSG.PROFILE_ID,\n        tmplId: 'partner_booking21',\n        msg: `✓ 확정 전까지는 예약자가 언제든 취소할 수 있어요.\\n✓ 수업 시간 전까지 확정하지 않으시면 예약이 자동 취소되니, 빠른 확정/변경 부탁드립니다 :)`,\n        header: '신규 예약을 확정해주세요!',\n        items: {\n          item: {\n            list: [\n              {\n                title: '예약',\n                description: this.shortenTitle(scheduleTitle, 23),\n              },\n              {\n                title: '일정',\n                description: this.formatMonthDayTime(startDateObj),\n              },\n              { title: '인원', description: `${reservationCount}명` },\n              { title: '예약자', description: this.shortenTitle(userName, 21) },\n              { title: '연락처', description: this.formatPhone(userPhone) },\n              { title: '예약수단', description: '1회권' },\n            ],\n          },\n          itemHighlight: {\n            title: this.shortenTitle(placeTitle, 21),\n            description: '예약한 장소',\n          },\n        },\n        button1: {\n          name: '예약 확정하기',\n          type: 'WL',\n          url_mobile: `https://admin.obud.co/place/${placeId}/reservation`,\n          url_pc: `https://admin.obud.co/place/${placeId}/reservation`,\n        },\n      })",
+    "savedAt": "2026-09-22T07:19:55.538Z",
+    "template": {
+      "category": "",
+      "profileExpr": "ENV.BIZMSG.PROFILE_ID",
+      "tmplId": "partner_booking21",
+      "messageType": "AT",
+      "phoneVar": "recipient.phone",
+      "emphasize": "ITEM_LIST",
+      "header": "신규 예약을 확정해주세요!",
+      "title": "",
+      "itemList": [
+        {
+          "title": "예약",
+          "description": "this.shortenTitle(scheduleTitle, 23)"
+        },
+        {
+          "title": "일정",
+          "description": "this.formatMonthDayTime(startDateObj)"
+        },
+        {
+          "title": "인원",
+          "description": "${reservationCount}명"
+        },
+        {
+          "title": "예약자",
+          "description": "this.shortenTitle(userName, 21)"
+        },
+        {
+          "title": "연락처",
+          "description": "this.formatPhone(userPhone)"
+        },
+        {
+          "title": "예약수단",
+          "description": "1회권"
+        }
+      ],
+      "itemHighlightTitle": "this.shortenTitle(placeTitle, 21)",
+      "itemHighlightDescription": "예약한 장소",
+      "msg": "✓ 확정 전까지는 예약자가 언제든 취소할 수 있어요.\n✓ 수업 시간 전까지 확정하지 않으시면 예약이 자동 취소되니, 빠른 확정/변경 부탁드립니다 :)",
+      "additionalContent": "",
+      "buttons": [
+        {
+          "name": "예약 확정하기",
+          "type": "WL",
+          "url_mobile": "https://admin.obud.co/place/${placeId}/reservation",
+          "url_pc": "https://admin.obud.co/place/${placeId}/reservation",
+          "scheme_ios": "",
+          "scheme_android": ""
+        }
+      ],
+      "topImageUrl": "",
+      "highlightThumbnailUrl": ""
+    }
+  },
+  {
+    "id": "obud:partner_booking22",
+    "project": "obud",
+    "sourceFile": "src/reservation/reservation.service.ts",
+    "rawCode": "this.bizmsgService.sendAlimtalk({\n        message_type: 'AT',\n        phn: recipient.phone,\n        profile: ENV.BIZMSG.PROFILE_ID,\n        tmplId: 'partner_booking22',\n        msg: `예약이 취소되었습니다.\\n상세 내용을 확인해 주세요.`,\n        header: '예약이 취소되었어요',\n        items: {\n          item: {\n            list: [\n              { title: '예약', description: shortenTitle(scheduleTitle, 23) },\n              {\n                title: '일정',\n                description: formatMonthDayTime(startDate),\n              },\n              {\n                title: '인원',\n                description: '1명',\n              },\n              {\n                title: '예약자',\n                description: shortenTitle(userName || user.name, 21),\n              },\n              {\n                title: '연락처',\n                description: formatPhone(userPhone || user.phone),\n              },\n              { title: '예약수단', description: shortenTitle(passName, 21) },\n            ],\n          },\n          itemHighlight: {\n            title: shortenTitle(placeTitle, 21),\n            description: '예약한 장소',\n          },\n        },\n        button1: {\n          name: '예약내역 상세보기',\n          type: 'WL',\n          url_mobile: `https://admin.obud.co/place/${placeId}/reservation`,\n          url_pc: `https://admin.obud.co/place/${placeId}/reservation`,\n        },\n      })",
+    "savedAt": "2026-09-22T07:19:55.537Z",
+    "template": {
+      "category": "",
+      "profileExpr": "ENV.BIZMSG.PROFILE_ID",
+      "tmplId": "partner_booking22",
+      "messageType": "AT",
+      "phoneVar": "recipient.phone",
+      "emphasize": "ITEM_LIST",
+      "header": "예약이 취소되었어요",
+      "title": "",
+      "itemList": [
+        {
+          "title": "예약",
+          "description": "shortenTitle(scheduleTitle, 23)"
+        },
+        {
+          "title": "일정",
+          "description": "formatMonthDayTime(startDate)"
+        },
+        {
+          "title": "인원",
+          "description": "1명"
+        },
+        {
+          "title": "예약자",
+          "description": "shortenTitle(userName || user.name, 21)"
+        },
+        {
+          "title": "연락처",
+          "description": "formatPhone(userPhone || user.phone)"
+        },
+        {
+          "title": "예약수단",
+          "description": "shortenTitle(passName, 21)"
+        }
+      ],
+      "itemHighlightTitle": "shortenTitle(placeTitle, 21)",
+      "itemHighlightDescription": "예약한 장소",
+      "msg": "예약이 취소되었습니다.\n상세 내용을 확인해 주세요.",
+      "additionalContent": "",
+      "buttons": [
+        {
+          "name": "예약내역 상세보기",
+          "type": "WL",
+          "url_mobile": "https://admin.obud.co/place/${placeId}/reservation",
+          "url_pc": "https://admin.obud.co/place/${placeId}/reservation",
+          "scheme_ios": "",
+          "scheme_android": ""
+        }
+      ],
+      "topImageUrl": "",
+      "highlightThumbnailUrl": ""
+    }
+  },
+  {
+    "id": "obud:partner_booking23",
+    "project": "obud",
+    "sourceFile": "src/reservation/reservation.service.ts",
+    "rawCode": "this.bizmsgService.sendAlimtalk({\n        message_type: 'AT',\n        phn: recipient.phone,\n        profile: ENV.BIZMSG.PROFILE_ID,\n        tmplId: 'partner_booking23',\n        header: '예약이 취소되었어요',\n        msg: `예약이 취소되었습니다.\\n상세 내용을 확인해 주세요.`,\n        items: {\n          item: {\n            list: [\n              {\n                title: '예약',\n                description: this.shortenTitle(scheduleTitle, 23),\n              },\n              {\n                title: '일정',\n                description: this.formatMonthDayTime(startDateObj),\n              },\n              { title: '인원', description: `${reservationCount}명` },\n              {\n                title: '결제금액',\n                description: `${amount.toLocaleString()}원`,\n              },\n              {\n                title: '환불금액',\n                description: `${cancelAmount.toLocaleString()}원`,\n              },\n              { title: '예약자', description: this.shortenTitle(userName, 21) },\n              { title: '연락처', description: userPhone },\n              { title: '예약수단', description: '1회권' },\n            ],\n          },\n          itemHighlight: {\n            title: this.shortenTitle(placeTitle, 21),\n            description: '예약한 장소',\n          },\n        },\n        button1: {\n          name: '예약내역 상세보기',\n          type: 'WL',\n          url_mobile: `https://admin.obud.co/place/${placeId}/reservation`,\n          url_pc: `https://admin.obud.co/place/${placeId}/reservation`,\n        },\n      })",
+    "savedAt": "2026-09-22T07:19:55.539Z",
+    "template": {
+      "category": "",
+      "profileExpr": "ENV.BIZMSG.PROFILE_ID",
+      "tmplId": "partner_booking23",
+      "messageType": "AT",
+      "phoneVar": "recipient.phone",
+      "emphasize": "ITEM_LIST",
+      "header": "예약이 취소되었어요",
+      "title": "",
+      "itemList": [
+        {
+          "title": "예약",
+          "description": "this.shortenTitle(scheduleTitle, 23)"
+        },
+        {
+          "title": "일정",
+          "description": "this.formatMonthDayTime(startDateObj)"
+        },
+        {
+          "title": "인원",
+          "description": "${reservationCount}명"
+        },
+        {
+          "title": "결제금액",
+          "description": "${amount.toLocaleString()}원"
+        },
+        {
+          "title": "환불금액",
+          "description": "${cancelAmount.toLocaleString()}원"
+        },
+        {
+          "title": "예약자",
+          "description": "this.shortenTitle(userName, 21)"
+        },
+        {
+          "title": "연락처",
+          "description": "userPhone"
+        },
+        {
+          "title": "예약수단",
+          "description": "1회권"
+        }
+      ],
+      "itemHighlightTitle": "this.shortenTitle(placeTitle, 21)",
+      "itemHighlightDescription": "예약한 장소",
+      "msg": "예약이 취소되었습니다.\n상세 내용을 확인해 주세요.",
+      "additionalContent": "",
+      "buttons": [
+        {
+          "name": "예약내역 상세보기",
+          "type": "WL",
+          "url_mobile": "https://admin.obud.co/place/${placeId}/reservation",
+          "url_pc": "https://admin.obud.co/place/${placeId}/reservation",
+          "scheme_ios": "",
+          "scheme_android": ""
+        }
+      ],
+      "topImageUrl": "",
+      "highlightThumbnailUrl": ""
+    }
+  },
+  {
+    "id": "obud:pass_refund",
+    "project": "obud",
+    "sourceFile": "src/payment/payment.service.ts",
+    "rawCode": "this.bizmsgService.sendAlimtalk({\n      message_type: 'AT',\n      phn: userPhone,\n      profile: ENV.BIZMSG.PROFILE_ID,\n      tmplId: 'pass_refund',\n      header: '환불이 완료되었습니다.',\n      msg: '카드사 환불에 영업일 2-3일이 소요될 수 있어요.\\n다시 만나길 기대할게요 🙏',\n      items: {\n        item: {\n          list: [\n            { title: '상품', description: shortenTitle(passName, 21) },\n            {\n              title: '결제금액',\n              description: `${payAmount.toLocaleString()}원`,\n            },\n            {\n              title: '환불금액',\n              description: `${refundAmount.toLocaleString()}원`,\n            },\n          ],\n        },\n      },\n      button1: {\n        name: '채널 추가',\n        type: 'AC',\n      },\n    })",
+    "savedAt": "2026-09-22T07:19:55.485Z",
+    "template": {
+      "category": "",
+      "profileExpr": "ENV.BIZMSG.PROFILE_ID",
+      "tmplId": "pass_refund",
+      "messageType": "AT",
+      "phoneVar": "userPhone",
+      "emphasize": "ITEM_LIST",
+      "header": "환불이 완료되었습니다.",
+      "title": "",
+      "itemList": [
+        {
+          "title": "상품",
+          "description": "shortenTitle(passName, 21)"
+        },
+        {
+          "title": "결제금액",
+          "description": "${payAmount.toLocaleString()}원"
+        },
+        {
+          "title": "환불금액",
+          "description": "${refundAmount.toLocaleString()}원"
+        }
+      ],
+      "itemHighlightTitle": "",
+      "itemHighlightDescription": "",
+      "msg": "카드사 환불에 영업일 2-3일이 소요될 수 있어요.\n다시 만나길 기대할게요 🙏",
+      "additionalContent": "",
+      "buttons": [
+        {
+          "name": "채널 추가",
+          "type": "AC",
+          "url_mobile": "",
+          "url_pc": "",
+          "scheme_ios": "",
+          "scheme_android": ""
+        }
+      ],
+      "topImageUrl": "",
+      "highlightThumbnailUrl": ""
+    }
+  },
+  {
+    "id": "obud:passD-${remainingDays}-v2",
+    "project": "obud",
+    "sourceFile": "src/batch/batch.service.ts",
+    "rawCode": "this.bizmsgService.sendAlimtalk({\n      message_type: 'AI',\n      phn: userPass.user.phone,\n      profile: ENV.BIZMSG.PROFILE_ID,\n      tmplId: `passD-${remainingDays}-v2`,\n      msg: message,\n      button1: {\n        name: '홈페이지 바로가기',\n        type: 'WL',\n        url_mobile: 'https://www.obud.co',\n        url_pc: 'https://www.obud.co',\n      },\n      button2: {\n        name: '지도 바로가기',\n        type: 'WL',\n        url_mobile: 'https://www.obud.co/discover',\n        url_pc: 'https://www.obud.co/discover',\n      },\n    })",
+    "savedAt": "2026-09-22T07:19:55.372Z",
+    "template": {
+      "category": "",
+      "profileExpr": "ENV.BIZMSG.PROFILE_ID",
+      "tmplId": "passD-${remainingDays}-v2",
+      "messageType": "AI",
+      "phoneVar": "userPass.user.phone",
+      "emphasize": "NONE",
+      "header": "",
+      "title": "",
+      "itemList": [],
+      "itemHighlightTitle": "",
+      "itemHighlightDescription": "",
+      "msg": "message",
+      "additionalContent": "",
+      "buttons": [
+        {
+          "name": "홈페이지 바로가기",
+          "type": "WL",
+          "url_mobile": "https://www.obud.co",
+          "url_pc": "https://www.obud.co",
+          "scheme_ios": "",
+          "scheme_android": ""
+        },
+        {
+          "name": "지도 바로가기",
+          "type": "WL",
+          "url_mobile": "https://www.obud.co/discover",
+          "url_pc": "https://www.obud.co/discover",
+          "scheme_ios": "",
+          "scheme_android": ""
+        }
+      ],
+      "topImageUrl": "",
+      "highlightThumbnailUrl": ""
+    }
+  },
+  {
+    "id": "obud:pending_onetime01",
+    "project": "obud",
+    "sourceFile": "src/reservation/reservation.service.ts",
+    "rawCode": "this.bizmsgService.sendAlimtalk({\n        message_type: 'AT',\n        phn: userPhone,\n        profile: ENV.BIZMSG.PROFILE_ID,\n        tmplId: 'pending_onetime01',\n        msg: '예약 요청이 접수되었으며, 장소에서 확인 중입니다.  \\n예약 확정 또는 취소 시 알림톡으로 안내드릴게요.',\n        header: '예약 요청',\n        items: {\n          item: {\n            list: [\n              {\n                title: '예약',\n                description: this.shortenTitle(scheduleTitle, 23),\n              },\n              { title: '날짜', description: this.formatDate(startDateObj) },\n              {\n                title: '시간',\n                description: this.formatTimeRange(startDateObj, endDateObj),\n              },\n              { title: '인원', description: `${reservationCount}명` },\n            ],\n          },\n          itemHighlight: {\n            title: this.shortenTitle(placeTitle, 21),\n            description: '예약한 장소',\n          },\n        },\n        button1: {\n          name: '예약내역 확인하기',\n          type: 'WL',\n          url_mobile: 'https://www.obud.co/my/order',\n          url_pc: 'https://www.obud.co/my/order',\n        },\n      })",
+    "savedAt": "2026-09-22T07:19:55.538Z",
+    "template": {
+      "category": "",
+      "profileExpr": "ENV.BIZMSG.PROFILE_ID",
+      "tmplId": "pending_onetime01",
+      "messageType": "AT",
+      "phoneVar": "userPhone",
+      "emphasize": "ITEM_LIST",
+      "header": "예약 요청",
+      "title": "",
+      "itemList": [
+        {
+          "title": "예약",
+          "description": "this.shortenTitle(scheduleTitle, 23)"
+        },
+        {
+          "title": "날짜",
+          "description": "this.formatDate(startDateObj)"
+        },
+        {
+          "title": "시간",
+          "description": "this.formatTimeRange(startDateObj, endDateObj)"
+        },
+        {
+          "title": "인원",
+          "description": "${reservationCount}명"
+        }
+      ],
+      "itemHighlightTitle": "this.shortenTitle(placeTitle, 21)",
+      "itemHighlightDescription": "예약한 장소",
+      "msg": "예약 요청이 접수되었으며, 장소에서 확인 중입니다.  \n예약 확정 또는 취소 시 알림톡으로 안내드릴게요.",
+      "additionalContent": "",
+      "buttons": [
+        {
+          "name": "예약내역 확인하기",
+          "type": "WL",
+          "url_mobile": "https://www.obud.co/my/order",
+          "url_pc": "https://www.obud.co/my/order",
+          "scheme_ios": "",
+          "scheme_android": ""
+        }
+      ],
+      "topImageUrl": "",
+      "highlightThumbnailUrl": ""
+    }
+  },
+  {
+    "id": "obud:pending_pass01",
+    "project": "obud",
+    "sourceFile": "src/reservation/reservation.service.ts",
+    "rawCode": "this.bizmsgService.sendAlimtalk({\n      message_type: 'AT',\n      phn: userPhone || user.phone,\n      profile: ENV.BIZMSG.PROFILE_ID,\n      tmplId: 'pending_pass01',\n      msg: '예약 요청이 접수되었습니다!\\n예약 확정 또는 취소 시 알림톡으로 안내드릴게요.',\n      header: '예약 요청',\n      items: {\n        item: {\n          list: [\n            { title: '예약', description: shortenTitle(scheduleTitle, 23) },\n            { title: '날짜', description: formatDate(startDate) },\n            {\n              title: '시간',\n              description: formatTimeRange(startDate, endDate),\n            },\n            { title: '패스', description: shortenTitle(passName, 21) },\n          ],\n        },\n        itemHighlight: {\n          title: shortenTitle(placeTitle, 21),\n          description: '예약한 장소',\n        },\n      },\n      button1: {\n        name: '예약내역 확인하기',\n        type: 'WL',\n        url_mobile: 'https://www.obud.co/my/order',\n        url_pc: 'https://www.obud.co/my/order',\n      },\n    })",
+    "savedAt": "2026-09-22T07:19:55.535Z",
+    "template": {
+      "category": "",
+      "profileExpr": "ENV.BIZMSG.PROFILE_ID",
+      "tmplId": "pending_pass01",
+      "messageType": "AT",
+      "phoneVar": "userPhone || user.phone",
+      "emphasize": "ITEM_LIST",
+      "header": "예약 요청",
+      "title": "",
+      "itemList": [
+        {
+          "title": "예약",
+          "description": "shortenTitle(scheduleTitle, 23)"
+        },
+        {
+          "title": "날짜",
+          "description": "formatDate(startDate)"
+        },
+        {
+          "title": "시간",
+          "description": "formatTimeRange(startDate, endDate)"
+        },
+        {
+          "title": "패스",
+          "description": "shortenTitle(passName, 21)"
+        }
+      ],
+      "itemHighlightTitle": "shortenTitle(placeTitle, 21)",
+      "itemHighlightDescription": "예약한 장소",
+      "msg": "예약 요청이 접수되었습니다!\n예약 확정 또는 취소 시 알림톡으로 안내드릴게요.",
+      "additionalContent": "",
+      "buttons": [
+        {
+          "name": "예약내역 확인하기",
+          "type": "WL",
+          "url_mobile": "https://www.obud.co/my/order",
+          "url_pc": "https://www.obud.co/my/order",
+          "scheme_ios": "",
+          "scheme_android": ""
+        }
+      ],
+      "topImageUrl": "",
+      "highlightThumbnailUrl": ""
+    }
+  },
+  {
+    "id": "obud:place-referral-first-reward",
+    "project": "obud",
+    "sourceFile": "src/place-referral/place-referral.service.ts",
+    "rawCode": "this.bizmsgService.sendAlimtalk({\n      message_type: 'EX',\n      phn: referral.phone,\n      profile: ENV.BIZMSG.PROFILE_ID,\n      tmplId: 'place-referral-first-reward',\n      msg:\n        `추천해주신 스튜디오가 오붓에 입점했어요 🎉\\n\\n` +\n        `▶ 스튜디오: ${referral.placeTitle}\\n` +\n        `▶ 리워드: ${pass.title}\\n\\n` +\n        `감사한 마음을 담아 리워드 패스를 지급해드렸어요.\\n` +\n        `마이페이지에서 확인해보세요!`,\n      additional_content:\n        '※ (오붓) 이 메시지는 고객님이 참여하신 스튜디오 추천 활동에 따른 리워드 지급 안내 메시지입니다.',\n      button1: {\n        name: '내 패스 확인하기',\n        type: 'WL',\n        url_mobile: 'https://www.obud.co/my',\n        url_pc: 'https://www.obud.co/my',\n      },\n    })",
+    "savedAt": "2026-09-22T07:19:55.510Z",
+    "template": {
+      "category": "",
+      "profileExpr": "ENV.BIZMSG.PROFILE_ID",
+      "tmplId": "place-referral-first-reward",
+      "messageType": "AT",
+      "phoneVar": "referral.phone",
+      "emphasize": "NONE",
+      "header": "",
+      "title": "",
+      "itemList": [],
+      "itemHighlightTitle": "",
+      "itemHighlightDescription": "",
+      "msg": "`추천해주신 스튜디오가 오붓에 입점했어요 🎉\\n\\n` +\n        `▶ 스튜디오: ${referral.placeTitle}\\n` +\n        `▶ 리워드: ${pass.title}\\n\\n` +\n        `감사한 마음을 담아 리워드 패스를 지급해드렸어요.\\n` +\n        `마이페이지에서 확인해보세요!`",
+      "additionalContent": "※ (오붓) 이 메시지는 고객님이 참여하신 스튜디오 추천 활동에 따른 리워드 지급 안내 메시지입니다.",
+      "buttons": [
+        {
+          "name": "내 패스 확인하기",
+          "type": "WL",
+          "url_mobile": "https://www.obud.co/my",
+          "url_pc": "https://www.obud.co/my",
+          "scheme_ios": "",
+          "scheme_android": ""
+        }
+      ],
+      "topImageUrl": "",
+      "highlightThumbnailUrl": ""
+    }
+  },
+  {
+    "id": "obud:place-referral-second-reward",
+    "project": "obud",
+    "sourceFile": "src/place-referral/place-referral.service.ts",
+    "rawCode": "this.bizmsgService.sendAlimtalk({\n      message_type: 'EX',\n      phn: referral.phone,\n      profile: ENV.BIZMSG.PROFILE_ID,\n      tmplId: 'place-referral-second-reward',\n      msg:\n        `추천 리워드가 한 번 더 도착했어요 🎉\\n\\n` +\n        `▶ 스튜디오: ${referral.placeTitle}\\n` +\n        `▶ 리워드: ${pass.title}\\n\\n` +\n        `추천해주신 스튜디오가 오붓과 60일 넘게 함께하고 있어요.\\n` +\n        `감사한 마음을 담아 패스를 한 장 더 드려요!`,\n      additional_content:\n        '※ (오붓) 이 메시지는 고객님이 참여하신 스튜디오 추천 활동에 따른 리워드 지급 안내 메시지입니다.',\n      button1: {\n        name: '내 패스 확인하기',\n        type: 'WL',\n        url_mobile: 'https://www.obud.co/my',\n        url_pc: 'https://www.obud.co/my',\n      },\n    })",
+    "savedAt": "2026-09-22T07:19:55.510Z",
+    "template": {
+      "category": "",
+      "profileExpr": "ENV.BIZMSG.PROFILE_ID",
+      "tmplId": "place-referral-second-reward",
+      "messageType": "AT",
+      "phoneVar": "referral.phone",
+      "emphasize": "NONE",
+      "header": "",
+      "title": "",
+      "itemList": [],
+      "itemHighlightTitle": "",
+      "itemHighlightDescription": "",
+      "msg": "`추천 리워드가 한 번 더 도착했어요 🎉\\n\\n` +\n        `▶ 스튜디오: ${referral.placeTitle}\\n` +\n        `▶ 리워드: ${pass.title}\\n\\n` +\n        `추천해주신 스튜디오가 오붓과 60일 넘게 함께하고 있어요.\\n` +\n        `감사한 마음을 담아 패스를 한 장 더 드려요!`",
+      "additionalContent": "※ (오붓) 이 메시지는 고객님이 참여하신 스튜디오 추천 활동에 따른 리워드 지급 안내 메시지입니다.",
+      "buttons": [
+        {
+          "name": "내 패스 확인하기",
+          "type": "WL",
+          "url_mobile": "https://www.obud.co/my",
+          "url_pc": "https://www.obud.co/my",
+          "scheme_ios": "",
+          "scheme_android": ""
+        }
+      ],
+      "topImageUrl": "",
+      "highlightThumbnailUrl": ""
+    }
+  },
+  {
+    "id": "obud:review_naver_blog",
+    "project": "obud",
+    "sourceFile": "src/batch/batch.service.ts",
+    "rawCode": "this.bizmsgService.sendAlimtalk({\n      message_type: 'EX',\n      phn: phone,\n      profile: ENV.BIZMSG.PROFILE_ID,\n      tmplId: 'review_naver_blog',\n      msg: `오늘 ${reservation.place?.title || ''}에서의 경험은 어떠셨나요? 😊\\n\\n포토리뷰 이벤트가 진행중이니 소중한 경험을 함께 나눠주세요! 💚`,\n      additional_content: '네이버 블로그 리뷰 이벤트가 진행중이에요 :)',\n      button1: {\n        name: '리뷰 작성하기',\n        type: 'WL',\n        url_mobile: 'https://www.obud.co/my/order?tab=COMPLETED',\n        url_pc: 'https://www.obud.co/my/order?tab=COMPLETED',\n      },\n      button2: {\n        name: '네이버 리뷰이벤트 바로가기',\n        type: 'WL',\n        url_mobile: 'https://www.obud.co/contact/event-register',\n        url_pc: 'https://www.obud.co/contact/event-register',\n      },\n    })",
+    "savedAt": "2026-09-22T07:19:55.371Z",
+    "template": {
+      "category": "",
+      "profileExpr": "ENV.BIZMSG.PROFILE_ID",
+      "tmplId": "review_naver_blog",
+      "messageType": "AT",
+      "phoneVar": "phone",
+      "emphasize": "NONE",
+      "header": "",
+      "title": "",
+      "itemList": [],
+      "itemHighlightTitle": "",
+      "itemHighlightDescription": "",
+      "msg": "오늘 ${reservation.place?.title || ''}에서의 경험은 어떠셨나요? 😊\n\n포토리뷰 이벤트가 진행중이니 소중한 경험을 함께 나눠주세요! 💚",
+      "additionalContent": "네이버 블로그 리뷰 이벤트가 진행중이에요 :)",
+      "buttons": [
+        {
+          "name": "리뷰 작성하기",
+          "type": "WL",
+          "url_mobile": "https://www.obud.co/my/order?tab=COMPLETED",
+          "url_pc": "https://www.obud.co/my/order?tab=COMPLETED",
+          "scheme_ios": "",
+          "scheme_android": ""
+        },
+        {
+          "name": "네이버 리뷰이벤트 바로가기",
+          "type": "WL",
+          "url_mobile": "https://www.obud.co/contact/event-register",
+          "url_pc": "https://www.obud.co/contact/event-register",
+          "scheme_ios": "",
+          "scheme_android": ""
+        }
+      ],
+      "topImageUrl": "",
+      "highlightThumbnailUrl": ""
+    }
+  },
+  {
+    "id": "obud:schedule-change-v2",
+    "project": "obud",
+    "sourceFile": "src/schedule/listeners/schedule-change.listener.ts",
+    "rawCode": "this.bizmsgService.sendAlimtalk({\n          message_type: 'AT',\n          phn: reservation.user?.phone || reservation.reservationerPhone,\n          profile: ENV.BIZMSG.PROFILE_ID,\n          // schedule-change-v2 (2026-08-21 승인): 부가정보 문구만 변경됨 (템플릿 고정값, 코드에서 안 보냄)\n          tmplId: 'schedule-change-v2',\n          msg: config.message,\n          header: '예약 변경 안내',\n          items: {\n            item: {\n              list: config.list,\n            },\n            itemHighlight: {\n              title: shortenTitle(reservation.placeTitle, 21),\n              description: (() => {\n                const originalDate =\n                  event.originalSchedule?.startDate || schedule.startDate;\n                const date = new Date(originalDate);\n                return `${date.toLocaleDateString('ko-KR', { month: '2-digit', day: '2-digit' })} ${date.toLocaleTimeString('ko-KR', { hour: '2-digit', minute: '2-digit', hour12: false })}`;\n              })(),\n            },\n          },\n          button1: {\n            name: '예약 확인하기',\n            type: 'WL',\n            url_mobile: `https://www.obud.co/my/order/${reservation.id}`,\n            url_pc: `https://www.obud.co/my/order/${reservation.id}`,\n          },\n        })",
+    "savedAt": "2026-09-22T07:19:55.721Z",
+    "template": {
+      "category": "",
+      "profileExpr": "ENV.BIZMSG.PROFILE_ID",
+      "tmplId": "schedule-change-v2",
+      "messageType": "AT",
+      "phoneVar": "reservation.user?.phone || reservation.reservationerPhone",
+      "emphasize": "ITEM_LIST",
+      "header": "예약 변경 안내",
+      "title": "",
+      "itemList": [],
+      "itemHighlightTitle": "shortenTitle(reservation.placeTitle, 21)",
+      "itemHighlightDescription": "(() => {\n                const originalDate =\n                  event.originalSchedule?.startDate || schedule.startDate;\n                const date = new Date(originalDate);\n                return `${date.toLocaleDateString('ko-KR', { month: '2-digit', day: '2-digit' })} ${date.toLocaleTimeString('ko-KR', { hour: '2-digit', minute: '2-digit', hour12: false })}`;\n              })()",
+      "msg": "config.message",
+      "additionalContent": "",
+      "buttons": [
+        {
+          "name": "예약 확인하기",
+          "type": "WL",
+          "url_mobile": "https://www.obud.co/my/order/${reservation.id}",
+          "url_pc": "https://www.obud.co/my/order/${reservation.id}",
+          "scheme_ios": "",
+          "scheme_android": ""
+        }
+      ],
+      "topImageUrl": "",
+      "highlightThumbnailUrl": ""
+    }
+  },
+  {
+    "id": "obud:signup-coupon",
+    "project": "obud",
+    "sourceFile": "src/user/user/user.service.ts",
+    "rawCode": "this.bizmsgService.sendAlimtalk({\n        message_type: 'AI',\n        phn: userPhone,\n        profile: ENV.BIZMSG.PROFILE_ID,\n        tmplId: 'signup-coupon',\n        msg:\n          `오붓 회원가입을 환영합니다 🤗\\n\\n` +\n          `지금 바로 오붓패스에 사용할 수 있는 쿠폰이 발급되었어요!\\n` +\n          `▶ 쿠폰명: ${couponName}\\n` +\n          `▶ 만료일: ${validUntil}\\n\\n` +\n          `오붓과 함께\\n` +\n          `건강하고 즐거운 웰니스 여정을 시작해보세요! 💪`,\n        button1: {\n          name: '채널 추가',\n          type: 'AC',\n        },\n        button2: {\n          name: '오붓패스 바로가기',\n          type: 'WL',\n          url_mobile: 'https://www.obud.co/obud-pass',\n          url_pc: 'https://www.obud.co/obud-pass',\n        },\n      })",
+    "savedAt": "2026-09-22T07:19:55.755Z",
+    "template": {
+      "category": "",
+      "profileExpr": "ENV.BIZMSG.PROFILE_ID",
+      "tmplId": "signup-coupon",
+      "messageType": "AI",
+      "phoneVar": "userPhone",
+      "emphasize": "NONE",
+      "header": "",
+      "title": "",
+      "itemList": [],
+      "itemHighlightTitle": "",
+      "itemHighlightDescription": "",
+      "msg": "`오붓 회원가입을 환영합니다 🤗\\n\\n` +\n          `지금 바로 오붓패스에 사용할 수 있는 쿠폰이 발급되었어요!\\n` +\n          `▶ 쿠폰명: ${couponName}\\n` +\n          `▶ 만료일: ${validUntil}\\n\\n` +\n          `오붓과 함께\\n` +\n          `건강하고 즐거운 웰니스 여정을 시작해보세요! 💪`",
+      "additionalContent": "",
+      "buttons": [
+        {
+          "name": "채널 추가",
+          "type": "AC",
+          "url_mobile": "",
+          "url_pc": "",
+          "scheme_ios": "",
+          "scheme_android": ""
+        },
+        {
+          "name": "오붓패스 바로가기",
+          "type": "WL",
+          "url_mobile": "https://www.obud.co/obud-pass",
+          "url_pc": "https://www.obud.co/obud-pass",
+          "scheme_ios": "",
+          "scheme_android": ""
+        }
+      ],
+      "topImageUrl": "",
+      "highlightThumbnailUrl": ""
+    }
+  },
+  {
+    "id": "onstudio:hasPaymentDetail\n            ? 'partner_booking_confirm-cp-v2'\n            : 'partner_booking_confirm-v2'",
+    "project": "onstudio",
+    "sourceFile": "src/reservation/listeners/reservation-notification.listener.ts",
+    "rawCode": "this.bizmsgService.sendAlimtalk({\n          message_type: 'AT',\n          phn: admin.phone,\n          profile: process.env.BIZMSG_PROFILE_ID || '',\n          tmplId: hasPaymentDetail\n            ? 'partner_booking_confirm-cp-v2'\n            : 'partner_booking_confirm-v2',\n          msg: `✓ 확정 전까지는 예약자가 언제든 취소할 수 있어요.\\n✓ 수업 시간 전까지 확정하지 않으시면 예약이 자동 취소되니, 빠른 확정/변경 부탁드립니다 :)`,\n          header: '오붓 예약을 확정해주세요!',\n          items: {\n            item: {\n              list: itemList,\n            },\n            itemHighlight: {\n              title: shortenTitle(placeTitle, 21),\n              description: '예약한 장소',\n            },\n          },\n          button1: {\n            name: '예약 승인/취소 하기',\n            type: 'AL',\n            scheme_ios: `onstudioadminapp://places/${placeId}/schedules/${scheduleId}`,\n            scheme_android: `onstudioadminapp://places/${placeId}/schedules/${scheduleId}`,\n            // 신규 쿠폰 템플릿에만 Mobile/PC 폴백 URL이 등록되어 있음\n            ...(hasPaymentDetail && {\n              url_mobile: 'https://onstudio.kr/app-fallback',\n              url_pc: 'https://onstudio.kr/app-fallback',\n            }),\n          },\n        })",
+    "savedAt": "2026-09-22T07:19:56.322Z",
+    "template": {
+      "category": "",
+      "profileExpr": "process.env.BIZMSG_PROFILE_ID || ''",
+      "tmplId": "hasPaymentDetail\n            ? 'partner_booking_confirm-cp-v2'\n            : 'partner_booking_confirm-v2'",
+      "messageType": "AT",
+      "phoneVar": "admin.phone",
+      "emphasize": "ITEM_LIST",
+      "header": "오붓 예약을 확정해주세요!",
+      "title": "",
+      "itemList": [],
+      "itemHighlightTitle": "shortenTitle(placeTitle, 21)",
+      "itemHighlightDescription": "예약한 장소",
+      "msg": "✓ 확정 전까지는 예약자가 언제든 취소할 수 있어요.\n✓ 수업 시간 전까지 확정하지 않으시면 예약이 자동 취소되니, 빠른 확정/변경 부탁드립니다 :)",
+      "additionalContent": "",
+      "buttons": [
+        {
+          "name": "예약 승인/취소 하기",
+          "type": "AL",
+          "url_mobile": "",
+          "url_pc": "",
+          "scheme_ios": "onstudioadminapp://places/${placeId}/schedules/${scheduleId}",
+          "scheme_android": "onstudioadminapp://places/${placeId}/schedules/${scheduleId}"
+        }
+      ],
+      "topImageUrl": "",
+      "highlightThumbnailUrl": ""
+    }
+  },
+  {
+    "id": "onstudio:hasPaymentDetail\n            ? 'partner_booking-coupon-v2'\n            : 'partner_booking-v2'",
+    "project": "onstudio",
+    "sourceFile": "src/reservation/listeners/reservation-notification.listener.ts",
+    "rawCode": "this.bizmsgService.sendAlimtalk({\n          message_type: 'AT',\n          phn: admin.phone,\n          profile: process.env.BIZMSG_PROFILE_ID || '',\n          tmplId: hasPaymentDetail\n            ? 'partner_booking-coupon-v2'\n            : 'partner_booking-v2',\n          header: '오붓에서 예약이 완료되었어요!',\n          msg: `예약이 완료되었습니다.\\n상세 내용을 확인해 주세요.`,\n          items: {\n            item: {\n              list: itemList,\n            },\n            itemHighlight: {\n              title: shortenTitle(placeTitle, 21),\n              description: '예약한 장소',\n            },\n          },\n          button1: {\n            name: '예약내역 상세보기',\n            type: 'AL',\n            scheme_ios: `onstudioadminapp://places/${placeId}/schedules/${scheduleId}`,\n            scheme_android: `onstudioadminapp://places/${placeId}/schedules/${scheduleId}`,\n            // 신규 쿠폰 템플릿에만 Mobile/PC 폴백 URL이 등록되어 있음\n            ...(hasPaymentDetail && {\n              url_mobile: 'https://onstudio.kr/app-fallback',\n              url_pc: 'https://onstudio.kr/app-fallback',\n            }),\n          },\n        })",
+    "savedAt": "2026-09-22T07:19:56.322Z",
+    "template": {
+      "category": "",
+      "profileExpr": "process.env.BIZMSG_PROFILE_ID || ''",
+      "tmplId": "hasPaymentDetail\n            ? 'partner_booking-coupon-v2'\n            : 'partner_booking-v2'",
+      "messageType": "AT",
+      "phoneVar": "admin.phone",
+      "emphasize": "ITEM_LIST",
+      "header": "오붓에서 예약이 완료되었어요!",
+      "title": "",
+      "itemList": [],
+      "itemHighlightTitle": "shortenTitle(placeTitle, 21)",
+      "itemHighlightDescription": "예약한 장소",
+      "msg": "예약이 완료되었습니다.\n상세 내용을 확인해 주세요.",
+      "additionalContent": "",
+      "buttons": [
+        {
+          "name": "예약내역 상세보기",
+          "type": "AL",
+          "url_mobile": "",
+          "url_pc": "",
+          "scheme_ios": "onstudioadminapp://places/${placeId}/schedules/${scheduleId}",
+          "scheme_android": "onstudioadminapp://places/${placeId}/schedules/${scheduleId}"
+        }
+      ],
+      "topImageUrl": "",
+      "highlightThumbnailUrl": ""
+    }
+  },
+  {
+    "id": "onstudio:monthly-report-studio",
+    "project": "onstudio",
+    "sourceFile": "src/scheduled-tasks/scheduled-tasks.service.ts",
+    "rawCode": "this.bizmsgService.sendAlimtalk({\n      message_type: 'AI',\n      phn: phone,\n      profile: process.env.BIZMSG_PROFILE_ID || '',\n      tmplId: 'monthly-report-studio',\n      msg,\n      button1: {\n        name: '정산내역 보러가기',\n        type: 'AL',\n        scheme_ios: `onstudioadminapp://places/${placeId}/obud-settings/settlement-history`,\n        scheme_android: `onstudioadminapp://places/${placeId}/obud-settings/settlement-history`,\n        url_mobile: 'https://onstudio.kr/app-fallback',\n        url_pc: 'https://onstudio.kr/app-fallback',\n      },\n      button2: {\n        name: '취소 줄이는 방법 알아보기',\n        type: 'WL',\n        url_mobile: 'https://onstudio.kr/',\n        url_pc: 'https://onstudio.kr/',\n      },\n    })",
+    "savedAt": "2026-09-22T07:19:56.215Z",
+    "template": {
+      "category": "",
+      "profileExpr": "process.env.BIZMSG_PROFILE_ID || ''",
+      "tmplId": "monthly-report-studio",
+      "messageType": "AI",
+      "phoneVar": "phone",
+      "emphasize": "NONE",
+      "header": "",
+      "title": "",
+      "itemList": [],
+      "itemHighlightTitle": "",
+      "itemHighlightDescription": "",
+      "msg": "msg",
+      "additionalContent": "",
+      "buttons": [
+        {
+          "name": "정산내역 보러가기",
+          "type": "AL",
+          "url_mobile": "https://onstudio.kr/app-fallback",
+          "url_pc": "https://onstudio.kr/app-fallback",
+          "scheme_ios": "onstudioadminapp://places/${placeId}/obud-settings/settlement-history",
+          "scheme_android": "onstudioadminapp://places/${placeId}/obud-settings/settlement-history"
+        },
+        {
+          "name": "취소 줄이는 방법 알아보기",
+          "type": "WL",
+          "url_mobile": "https://onstudio.kr/",
+          "url_pc": "https://onstudio.kr/",
+          "scheme_ios": "",
+          "scheme_android": ""
+        }
+      ],
+      "topImageUrl": "",
+      "highlightThumbnailUrl": ""
+    }
+  },
+  {
+    "id": "onstudio:obud-D-1-booking",
+    "project": "onstudio",
+    "sourceFile": "src/scheduled-tasks/scheduled-tasks.service.ts",
+    "rawCode": "this.bizmsgService.sendAlimtalk({\n          message_type: 'AT',\n          phn: admin.phone,\n          profile: process.env.BIZMSG_PROFILE_ID || '',\n          tmplId: 'obud-D-1-booking',\n          title: `내일 예약자 ${reservationCount}명이 있어요`,\n          msg: `내일 ${place.title}에 방문 예정인 고객이 ${reservationCount}명 있어요.\\n\\n아래 링크를 클릭해서 예약자를 확인해 주세요.`,\n          button1: {\n            name: '예약 확인하기',\n            type: 'AL',\n            scheme_ios: `onstudioadminapp://places/${placeId}`,\n            scheme_android: `onstudioadminapp://places/${placeId}`,\n          },\n        })",
+    "savedAt": "2026-09-22T07:19:56.203Z",
+    "template": {
+      "category": "",
+      "profileExpr": "process.env.BIZMSG_PROFILE_ID || ''",
+      "tmplId": "obud-D-1-booking",
+      "messageType": "AT",
+      "phoneVar": "admin.phone",
+      "emphasize": "TEXT",
+      "header": "",
+      "title": "내일 예약자 ${reservationCount}명이 있어요",
+      "itemList": [],
+      "itemHighlightTitle": "",
+      "itemHighlightDescription": "",
+      "msg": "내일 ${place.title}에 방문 예정인 고객이 ${reservationCount}명 있어요.\n\n아래 링크를 클릭해서 예약자를 확인해 주세요.",
+      "additionalContent": "",
+      "buttons": [
+        {
+          "name": "예약 확인하기",
+          "type": "AL",
+          "url_mobile": "",
+          "url_pc": "",
+          "scheme_ios": "onstudioadminapp://places/${placeId}",
+          "scheme_android": "onstudioadminapp://places/${placeId}"
+        }
+      ],
+      "topImageUrl": "",
+      "highlightThumbnailUrl": ""
+    }
+  },
+  {
+    "id": "onstudio:open-alim",
+    "project": "onstudio",
+    "sourceFile": "src/sync/sync.service.ts",
+    "rawCode": "this.bizmsgService.sendAlimtalk({\n          message_type: 'AT',\n          phn,\n          profile: process.env.BIZMSG_PROFILE_ID || '',\n          tmplId: 'open-alim',\n          msg,\n          title: '오붓에 스튜디오가 게시됐어요! 🎉',\n          button1: {\n            name: '정산정보 확인하기',\n            type: 'AL',\n            scheme_android: `onstudioadminapp://places/${place.id}/obud-settings/settlement-info`,\n            scheme_ios: `onstudioadminapp://places/${place.id}/obud-settings/settlement-info`,\n          },\n          button2: {\n            name: '오붓 홈 바로가기',\n            type: 'WL',\n            url_mobile: `https://obud.co`,\n            url_pc: `https://obud.co`,\n          },\n        })",
+    "savedAt": "2026-09-22T07:19:56.227Z",
+    "template": {
+      "category": "",
+      "profileExpr": "process.env.BIZMSG_PROFILE_ID || ''",
+      "tmplId": "open-alim",
+      "messageType": "AT",
+      "phoneVar": "phn",
+      "emphasize": "TEXT",
+      "header": "",
+      "title": "오붓에 스튜디오가 게시됐어요! 🎉",
+      "itemList": [],
+      "itemHighlightTitle": "",
+      "itemHighlightDescription": "",
+      "msg": "msg",
+      "additionalContent": "",
+      "buttons": [
+        {
+          "name": "정산정보 확인하기",
+          "type": "AL",
+          "url_mobile": "",
+          "url_pc": "",
+          "scheme_ios": "onstudioadminapp://places/${place.id}/obud-settings/settlement-info",
+          "scheme_android": "onstudioadminapp://places/${place.id}/obud-settings/settlement-info"
+        },
+        {
+          "name": "오붓 홈 바로가기",
+          "type": "WL",
+          "url_mobile": "https://obud.co",
+          "url_pc": "https://obud.co",
+          "scheme_ios": "",
+          "scheme_android": ""
+        }
+      ],
+      "topImageUrl": "",
+      "highlightThumbnailUrl": ""
+    }
+  },
+  {
+    "id": "onstudio:partner_booking_cancel-v2",
+    "project": "onstudio",
+    "sourceFile": "src/reservation/listeners/reservation-notification.listener.ts",
+    "rawCode": "this.bizmsgService.sendAlimtalk({\n          message_type: 'AT',\n          phn: admin.phone,\n          profile: process.env.BIZMSG_PROFILE_ID || '',\n          tmplId: 'partner_booking_cancel-v2',\n          header: '오붓 패스 예약이 취소되었어요',\n          msg: `예약이 취소되었습니다.\\n상세 내용을 확인해 주세요.`,\n          items: {\n            item: {\n              list: [\n                {\n                  title: '예약',\n                  description: shortenTitle(scheduleTitle, 23),\n                },\n                {\n                  title: '일정',\n                  description: formatMonthDayTime(startDate),\n                },\n                {\n                  title: '인원',\n                  description: '1명',\n                },\n                {\n                  title: '예약자',\n                  description: shortenTitle(customerName, 21),\n                },\n                {\n                  title: '연락처',\n                  description: formatPhone(customerPhone),\n                },\n                {\n                  title: '예약수단',\n                  description: shortenTitle('오붓패스', 21),\n                },\n              ],\n            },\n            itemHighlight: {\n              title: shortenTitle(placeTitle, 21),\n              description: '예약한 장소',\n            },\n          },\n          button1: {\n            name: '예약내역 상세보기',\n            type: 'AL',\n            scheme_ios: `onstudioadminapp://places/${placeId}/schedules/${scheduleId}`,\n            scheme_android: `onstudioadminapp://places/${placeId}/schedules/${scheduleId}`,\n          },\n        })",
+    "savedAt": "2026-09-22T07:19:56.322Z",
+    "template": {
+      "category": "",
+      "profileExpr": "process.env.BIZMSG_PROFILE_ID || ''",
+      "tmplId": "partner_booking_cancel-v2",
+      "messageType": "AT",
+      "phoneVar": "admin.phone",
+      "emphasize": "ITEM_LIST",
+      "header": "오붓 패스 예약이 취소되었어요",
+      "title": "",
+      "itemList": [
+        {
+          "title": "예약",
+          "description": "shortenTitle(scheduleTitle, 23)"
+        },
+        {
+          "title": "일정",
+          "description": "formatMonthDayTime(startDate)"
+        },
+        {
+          "title": "인원",
+          "description": "1명"
+        },
+        {
+          "title": "예약자",
+          "description": "shortenTitle(customerName, 21)"
+        },
+        {
+          "title": "연락처",
+          "description": "formatPhone(customerPhone)"
+        },
+        {
+          "title": "예약수단",
+          "description": "shortenTitle('오붓패스', 21)"
+        }
+      ],
+      "itemHighlightTitle": "shortenTitle(placeTitle, 21)",
+      "itemHighlightDescription": "예약한 장소",
+      "msg": "예약이 취소되었습니다.\n상세 내용을 확인해 주세요.",
+      "additionalContent": "",
+      "buttons": [
+        {
+          "name": "예약내역 상세보기",
+          "type": "AL",
+          "url_mobile": "",
+          "url_pc": "",
+          "scheme_ios": "onstudioadminapp://places/${placeId}/schedules/${scheduleId}",
+          "scheme_android": "onstudioadminapp://places/${placeId}/schedules/${scheduleId}"
+        }
+      ],
+      "topImageUrl": "",
+      "highlightThumbnailUrl": ""
+    }
+  },
+  {
+    "id": "onstudio:partner_booking_refund-v2",
+    "project": "onstudio",
+    "sourceFile": "src/reservation/listeners/reservation-notification.listener.ts",
+    "rawCode": "this.bizmsgService.sendAlimtalk({\n          message_type: 'AT',\n          phn: admin.phone,\n          profile: process.env.BIZMSG_PROFILE_ID || '',\n          tmplId: 'partner_booking_refund-v2',\n          header: '오붓 예약이 취소되었어요',\n          msg: `예약이 취소되었습니다.\\n상세 내용을 확인해 주세요.`,\n          items: {\n            item: {\n              list: [\n                {\n                  title: '예약',\n                  description: shortenTitle(scheduleTitle, 23),\n                },\n                {\n                  title: '일정',\n                  description: formatMonthDayTime(startDate),\n                },\n                { title: '인원', description: `${reservationCount}명` },\n                {\n                  title: '결제금액',\n                  description: `${amount.toLocaleString()}원`,\n                },\n                {\n                  title: '환불금액',\n                  description: `${cancelAmount.toLocaleString()}원`,\n                },\n                {\n                  title: '예약자',\n                  description: shortenTitle(customerName, 21),\n                },\n                { title: '연락처', description: formatPhone(customerPhone) },\n                { title: '예약수단', description: '1회권' },\n              ],\n            },\n            itemHighlight: {\n              title: shortenTitle(placeTitle, 21),\n              description: '예약한 장소',\n            },\n          },\n          button1: {\n            name: '예약내역 상세보기',\n            type: 'AL',\n            scheme_ios: `onstudioadminapp://places/${placeId}/schedules/${scheduleId}`,\n            scheme_android: `onstudioadminapp://places/${placeId}/schedules/${scheduleId}`,\n          },\n        })",
+    "savedAt": "2026-09-22T07:19:56.323Z",
+    "template": {
+      "category": "",
+      "profileExpr": "process.env.BIZMSG_PROFILE_ID || ''",
+      "tmplId": "partner_booking_refund-v2",
+      "messageType": "AT",
+      "phoneVar": "admin.phone",
+      "emphasize": "ITEM_LIST",
+      "header": "오붓 예약이 취소되었어요",
+      "title": "",
+      "itemList": [
+        {
+          "title": "예약",
+          "description": "shortenTitle(scheduleTitle, 23)"
+        },
+        {
+          "title": "일정",
+          "description": "formatMonthDayTime(startDate)"
+        },
+        {
+          "title": "인원",
+          "description": "${reservationCount}명"
+        },
+        {
+          "title": "결제금액",
+          "description": "${amount.toLocaleString()}원"
+        },
+        {
+          "title": "환불금액",
+          "description": "${cancelAmount.toLocaleString()}원"
+        },
+        {
+          "title": "예약자",
+          "description": "shortenTitle(customerName, 21)"
+        },
+        {
+          "title": "연락처",
+          "description": "formatPhone(customerPhone)"
+        },
+        {
+          "title": "예약수단",
+          "description": "1회권"
+        }
+      ],
+      "itemHighlightTitle": "shortenTitle(placeTitle, 21)",
+      "itemHighlightDescription": "예약한 장소",
+      "msg": "예약이 취소되었습니다.\n상세 내용을 확인해 주세요.",
+      "additionalContent": "",
+      "buttons": [
+        {
+          "name": "예약내역 상세보기",
+          "type": "AL",
+          "url_mobile": "",
+          "url_pc": "",
+          "scheme_ios": "onstudioadminapp://places/${placeId}/schedules/${scheduleId}",
+          "scheme_android": "onstudioadminapp://places/${placeId}/schedules/${scheduleId}"
+        }
+      ],
+      "topImageUrl": "",
+      "highlightThumbnailUrl": ""
+    }
+  },
+  {
+    "id": "onstudio:remind_need_confirm",
+    "project": "onstudio",
+    "sourceFile": "src/scheduled-tasks/scheduled-tasks.service.ts",
+    "rawCode": "this.bizmsgService.sendAlimtalk({\n        message_type: 'AT',\n        phn: admin.phone,\n        profile: process.env.BIZMSG_PROFILE_ID || '',\n        tmplId: 'remind_need_confirm',\n        title: `승인 대기 예약 ${pendingCount}건`,\n        msg: `회원이 예약 확정을 기다리고 있어요!\\n확인 후 승인 또는 취소 부탁드려요 :)`,\n        button1: {\n          name: '예약 승인/취소 하기',\n          type: 'AL',\n          scheme_ios: `onstudioadminapp://places/${placeId}`,\n          scheme_android: `onstudioadminapp://places/${placeId}`,\n          url_mobile: 'https://onstudio.kr/app-fallback',\n        },\n      })",
+    "savedAt": "2026-09-22T07:19:56.203Z",
+    "template": {
+      "category": "",
+      "profileExpr": "process.env.BIZMSG_PROFILE_ID || ''",
+      "tmplId": "remind_need_confirm",
+      "messageType": "AT",
+      "phoneVar": "admin.phone",
+      "emphasize": "TEXT",
+      "header": "",
+      "title": "승인 대기 예약 ${pendingCount}건",
+      "itemList": [],
+      "itemHighlightTitle": "",
+      "itemHighlightDescription": "",
+      "msg": "회원이 예약 확정을 기다리고 있어요!\n확인 후 승인 또는 취소 부탁드려요 :)",
+      "additionalContent": "",
+      "buttons": [
+        {
+          "name": "예약 승인/취소 하기",
+          "type": "AL",
+          "url_mobile": "https://onstudio.kr/app-fallback",
+          "url_pc": "",
+          "scheme_ios": "onstudioadminapp://places/${placeId}",
+          "scheme_android": "onstudioadminapp://places/${placeId}"
+        }
+      ],
+      "topImageUrl": "",
+      "highlightThumbnailUrl": ""
+    }
+  },
+  {
+    "id": "onstudio:schedule_auto_update",
+    "project": "onstudio",
+    "sourceFile": "src/scheduled-tasks/scheduled-tasks.service.ts",
+    "rawCode": "this.bizmsgService.sendAlimtalk({\n        message_type: 'AI',\n        phn: admin.phone,\n        profile: process.env.BIZMSG_PROFILE_ID || '',\n        tmplId: 'schedule_auto_update',\n        msg:\n          `오붓에 ${targetMonth}월 스케줄이 전월과 동일하게 업데이트되었어요 :)\\n` +\n          `아래 링크에서 꼭 확인해주세요!`,\n        button1: {\n          name: '스케줄 확인하기',\n          type: 'WL',\n          url_mobile: placeUrl,\n          url_pc: placeUrl,\n        },\n      })",
+    "savedAt": "2026-09-22T07:19:56.211Z",
+    "template": {
+      "category": "",
+      "profileExpr": "process.env.BIZMSG_PROFILE_ID || ''",
+      "tmplId": "schedule_auto_update",
+      "messageType": "AI",
+      "phoneVar": "admin.phone",
+      "emphasize": "NONE",
+      "header": "",
+      "title": "",
+      "itemList": [],
+      "itemHighlightTitle": "",
+      "itemHighlightDescription": "",
+      "msg": "`오붓에 ${targetMonth}월 스케줄이 전월과 동일하게 업데이트되었어요 :)\\n` +\n          `아래 링크에서 꼭 확인해주세요!`",
+      "additionalContent": "",
+      "buttons": [
+        {
+          "name": "스케줄 확인하기",
+          "type": "WL",
+          "url_mobile": "placeUrl",
+          "url_pc": "placeUrl",
+          "scheme_ios": "",
+          "scheme_android": ""
+        }
+      ],
+      "topImageUrl": "",
+      "highlightThumbnailUrl": ""
+    }
+  },
+  {
+    "id": "onstudio:schedule_update_with_app",
+    "project": "onstudio",
+    "sourceFile": "src/scheduled-tasks/scheduled-tasks.service.ts",
+    "rawCode": "this.bizmsgService.sendAlimtalk({\n            message_type: 'AT',\n            phn: phone,\n            profile: process.env.BIZMSG_PROFILE_ID || '',\n            tmplId: 'schedule_update_with_app',\n            title: `${displayMonth}월 스케줄 업데이트`,\n            msg:\n              `변경된 시간표를 회신해 주시거나,\\n` +\n              `아래 버튼을 눌러 전월 스케줄을 복사해 등록해 주세요! 😃`,\n            button1: {\n              name: '스케줄 등록하기',\n              type: 'AL',\n              scheme_android: appScheme,\n              scheme_ios: appScheme,\n              url_mobile: 'https://onstudio.kr/app-fallback',\n            },\n          })",
+    "savedAt": "2026-09-22T07:19:56.212Z",
+    "template": {
+      "category": "",
+      "profileExpr": "process.env.BIZMSG_PROFILE_ID || ''",
+      "tmplId": "schedule_update_with_app",
+      "messageType": "AT",
+      "phoneVar": "phone",
+      "emphasize": "TEXT",
+      "header": "",
+      "title": "${displayMonth}월 스케줄 업데이트",
+      "itemList": [],
+      "itemHighlightTitle": "",
+      "itemHighlightDescription": "",
+      "msg": "`변경된 시간표를 회신해 주시거나,\\n` +\n              `아래 버튼을 눌러 전월 스케줄을 복사해 등록해 주세요! 😃`",
+      "additionalContent": "",
+      "buttons": [
+        {
+          "name": "스케줄 등록하기",
+          "type": "AL",
+          "url_mobile": "https://onstudio.kr/app-fallback",
+          "url_pc": "",
+          "scheme_ios": "appScheme",
+          "scheme_android": "appScheme"
+        }
+      ],
+      "topImageUrl": "",
+      "highlightThumbnailUrl": ""
+    }
+  }
+]

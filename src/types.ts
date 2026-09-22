@@ -1,6 +1,16 @@
 // 비즈엠 알림톡 템플릿 도메인 모델
 // obud-api-v2 의 BizmsgService.sendAlimtalk 인터페이스에 대응한다.
 
+// 라이브러리에 저장되는 알림톡 엔트리 (data/templates.json)
+export interface SavedTemplate {
+  id: string; // 고유 id (기본: `${project}:${tmplId}`)
+  project: string; // 'obud' | 'onstudio' | 'custom'
+  sourceFile?: string; // 추출 원본 파일 경로
+  rawCode?: string; // 원본 sendAlimtalk 코드 (파서 시딩분)
+  savedAt: string; // ISO 저장 시각
+  template: Template;
+}
+
 export type MessageType = 'AT' | 'AI'; // AT: 기본/아이템리스트형, AI: 이미지형
 
 export type EmphasizeType = 'NONE' | 'TEXT' | 'ITEM_LIST';
