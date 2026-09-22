@@ -1,15 +1,16 @@
+'use client';
+
 import { useEffect, useState } from 'react';
-import type { Template } from './types';
+import type { Template } from '../types';
 import {
   emptyTemplate,
   sampleTemplate,
   TOP_IMAGE_PRESETS,
   THUMBNAIL_PRESETS,
-} from './types';
-import { TemplateForm } from './components/TemplateForm';
-import { KakaoPreview } from './components/KakaoPreview';
-import { CodeOutput } from './components/CodeOutput';
-import './App.css';
+} from '../types';
+import { TemplateForm } from '../components/TemplateForm';
+import { KakaoPreview } from '../components/KakaoPreview';
+import { CodeOutput } from '../components/CodeOutput';
 
 // 기본 프리셋 + 사용자가 추가해 저장한 URL 을 합쳐서 로드
 function loadList(key: string, presets: string[]): string[] {
@@ -23,14 +24,16 @@ function loadList(key: string, presets: string[]): string[] {
   }
 }
 
-export default function App() {
+export default function Page() {
   const [template, setTemplate] = useState<Template>(sampleTemplate);
-  const [topImages, setTopImages] = useState<string[]>(() =>
-    loadList('bizmsg.topImages', TOP_IMAGE_PRESETS),
-  );
-  const [thumbnails, setThumbnails] = useState<string[]>(() =>
-    loadList('bizmsg.thumbnails', THUMBNAIL_PRESETS),
-  );
+  const [topImages, setTopImages] = useState<string[]>(TOP_IMAGE_PRESETS);
+  const [thumbnails, setThumbnails] = useState<string[]>(THUMBNAIL_PRESETS);
+
+  // localStorage 접근은 클라이언트 마운트 후에만 (SSR 안전)
+  useEffect(() => {
+    setTopImages(loadList('bizmsg.topImages', TOP_IMAGE_PRESETS));
+    setThumbnails(loadList('bizmsg.thumbnails', THUMBNAIL_PRESETS));
+  }, []);
 
   // 프리셋을 제외한 추가분만 저장
   useEffect(() => {
@@ -52,7 +55,10 @@ export default function App() {
       <header className="app__header">
         <div>
           <h1>비즈엠 알림톡 코드 생성기</h1>
-          <p>템플릿을 입력하면 sendAlimtalk 코드와 카카오톡 미리보기가 실시간으로 생성됩니다.</p>
+          <p>
+            템플릿을 입력하면 sendAlimtalk 코드와 카카오톡 미리보기가 실시간으로
+            생성됩니다.
+          </p>
         </div>
         <div className="app__header-actions">
           <button
