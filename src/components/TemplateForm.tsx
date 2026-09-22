@@ -30,7 +30,14 @@ export function TemplateForm({ value, onChange }: Props) {
     patch({
       buttons: [
         ...value.buttons,
-        { name: '', type: 'WL', url_mobile: '', url_pc: '' },
+        {
+          name: '',
+          type: 'WL',
+          url_mobile: '',
+          url_pc: '',
+          scheme_ios: '',
+          scheme_android: '',
+        },
       ],
     });
   };
@@ -60,6 +67,14 @@ export function TemplateForm({ value, onChange }: Props) {
           value={value.templateName}
           onChange={(e) => patch({ templateName: e.target.value })}
           placeholder="예약신고 답변 등록 안내"
+        />
+      </Row>
+
+      <Row label="발신프로필" hint="profile 에 넣을 코드 표현식">
+        <input
+          value={value.profileExpr}
+          onChange={(e) => patch({ profileExpr: e.target.value })}
+          placeholder="ENV.BIZMSG.PROFILE_ID"
         />
       </Row>
 
@@ -273,7 +288,7 @@ export function TemplateForm({ value, onChange }: Props) {
                   ))}
                 </select>
               </label>
-              {(btn.type === 'WL' || btn.type === 'AL') && (
+              {btn.type === 'WL' && (
                 <>
                   <label>
                     <span>Mobile URL</span>
@@ -293,6 +308,30 @@ export function TemplateForm({ value, onChange }: Props) {
                         patchButton(i, { url_pc: e.target.value })
                       }
                       placeholder="https://www.obud.co/my"
+                    />
+                  </label>
+                </>
+              )}
+              {btn.type === 'AL' && (
+                <>
+                  <label>
+                    <span>iOS Scheme</span>
+                    <input
+                      value={btn.scheme_ios}
+                      onChange={(e) =>
+                        patchButton(i, { scheme_ios: e.target.value })
+                      }
+                      placeholder="onstudioadminapp://places/#{placeId}"
+                    />
+                  </label>
+                  <label>
+                    <span>Android Scheme</span>
+                    <input
+                      value={btn.scheme_android}
+                      onChange={(e) =>
+                        patchButton(i, { scheme_android: e.target.value })
+                      }
+                      placeholder="onstudioadminapp://places/#{placeId}"
                     />
                   </label>
                 </>

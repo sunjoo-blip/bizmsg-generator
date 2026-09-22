@@ -25,9 +25,12 @@ function buttonBlock(
   const lines = [`${base}${key}: {`];
   lines.push(`${base}${IND}name: ${lit(btn.name)},`);
   lines.push(`${base}${IND}type: ${q(btn.type)},`);
-  if (btn.type === 'WL' || btn.type === 'AL') {
+  if (btn.type === 'WL') {
     lines.push(`${base}${IND}url_mobile: ${lit(btn.url_mobile)},`);
     lines.push(`${base}${IND}url_pc: ${lit(btn.url_pc)},`);
+  } else if (btn.type === 'AL') {
+    lines.push(`${base}${IND}scheme_ios: ${lit(btn.scheme_ios)},`);
+    lines.push(`${base}${IND}scheme_android: ${lit(btn.scheme_android)},`);
   }
   lines.push(`${base}},`);
   return lines.join('\n');
@@ -41,7 +44,7 @@ export function generateCode(t: Template): string {
   lines.push(`${IND.repeat(2)}await this.bizmsgService.sendAlimtalk({`);
   lines.push(`${base}message_type: ${q(t.messageType)},`);
   lines.push(`${base}phn: ${t.phoneVar || 'phone'},`);
-  lines.push(`${base}profile: ENV.BIZMSG.PROFILE_ID,`);
+  lines.push(`${base}profile: ${t.profileExpr || 'ENV.BIZMSG.PROFILE_ID'},`);
   lines.push(`${base}tmplId: ${q(t.tmplId)},`);
 
   // 강조 유형별 필드
